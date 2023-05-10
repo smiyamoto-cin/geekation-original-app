@@ -17,6 +17,7 @@ services:
       - DB_DATABASE=${DB_NAME}
       - DB_USERNAME=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
+      - DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
 
   web:
     build:
@@ -35,6 +36,7 @@ services:
       dockerfile: ./docker/mysql/Dockerfile
     ports:
       - ${DB_PORT}:3306
+    platform: linux/x86_64  
     environment:
       MYSQL_DATABASE: ${DB_NAME}
       MYSQL_USER: ${DB_USER}
@@ -52,7 +54,7 @@ services:
     image: phpmyadmin/phpmyadmin:5
 
     # コンテナの名前
-    container_name: mokumoku-events_phpmyadmin
+    container_name: geekation_original_app_phpmyadmin
 
     # コンテナと他のサービスを繋げる
     links:
@@ -60,7 +62,7 @@ services:
 
     # localhost:9000 で phpmyadmin の管理画面にアクセス。9000がすでに使われていたら、9001(localhost:9001で接続可)とか別の番号で対応すれば、OK
     ports:
-      - 9000:80
+      - 8080:80
 
     # セッション情報をボリュームに設定して永続化
     volumes:
