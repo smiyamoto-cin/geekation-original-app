@@ -1,7 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TopController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,5 +14,26 @@ use App\Http\Controllers\TopController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', [TopController::class, 'top'])
+// トップ画面
+Route::get('/', [TopController::class, 'Top'])
     ->name('top');
+
+
+// 管理者画面
+Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
+    Route::get('/mypage', [TopController::class, 'AdminMypage']) //  /admin/いらん
+    ->name('admin-mypage');
+});
+
+
+// 一般画面
+Route::get('/user/mypage', [TopController::class, 'UserMypage'])
+->name('user-mypage');
+// 有料画面
+Route::get('/paid-user/mypage', [TopController::class, 'PaidUserMypage'])
+->name('paid-user-mypage');
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
