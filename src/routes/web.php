@@ -39,8 +39,6 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
 Route::prefix('user')->group(function(){
     Route::get('/mypage', [TopController::class, 'UserMypage'])
     ->name('user-mypage');
-    Route::get('/mypage/top', [TopController::class, 'userTop'])
-        ->name('user-top');
 });
 
 // 有料画面

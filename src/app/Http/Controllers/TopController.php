@@ -30,16 +30,7 @@ class TopController extends Controller
     {
         return view('user.user-mypage');
     }
-    //一般トップ画面
-    //roleごとにtopページへ
-    public function userTop()
-    {
-        if (Auth::user()->role == '2'){
-            return view('user.user-top');
-        }else{
-            view('home');
-        }
-    }
+   
     
     
 
