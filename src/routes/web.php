@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\ConfirmController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TopController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TopController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +16,14 @@ use App\Http\Controllers\TopController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
 // トップ画面
+
 Route::get('/', [TopController::class, 'Top'])
     ->name('top');
 
@@ -27,8 +36,13 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
 
 
 // 一般画面
-Route::get('/user/mypage', [TopController::class, 'UserMypage'])
-->name('user-mypage');
+Route::prefix('user')->group(function(){
+    Route::get('/mypage', [TopController::class, 'UserMypage'])
+    ->name('user-mypage');
+    Route::get('/mypage/top', [TopController::class, 'userTop'])
+        ->name('user-top');
+});
+
 // 有料画面
 Route::get('/paid-user/mypage', [TopController::class, 'PaidUserMypage'])
 ->name('paid-user-mypage');

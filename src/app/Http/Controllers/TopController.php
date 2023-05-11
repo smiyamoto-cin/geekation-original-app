@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
+/**
+ * Summary of TopController
+ */
 class TopController extends Controller
 {
     //
@@ -14,17 +18,32 @@ class TopController extends Controller
     {
         return view('top');
     }
-    //   管理者画面
+
+   
+    //   管理者マイページ
     public function AdminMypage()
     {
         return view('admin.admin-mypage');
     }
-    //  一般画面
+    //  一般マイページ
     public function UserMypage()
     {
         return view('user.user-mypage');
     }
-    //   有料画面
+    //一般トップ画面
+    //roleごとにtopページへ
+    public function userTop()
+    {
+        if (Auth::user()->role == '2'){
+            return view('user.user-top');
+        }else{
+            view('home');
+        }
+    }
+    
+    
+
+    //   有料マイページ
     
     public function PaidUserMypage()
     {
