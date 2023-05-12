@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ConfirmController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\QuizController;
 use App\Http\Controllers\TitleController;
 use App\Http\Controllers\TopController;
 use Illuminate\Support\Facades\Auth;
@@ -33,44 +34,49 @@ Route::get('/', [TopController::class, 'Top'])
 
 // 管理者画面
 Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
-    Route::get('/mypage', [AdminController::class, 'AdminMypage']) //  /admin/いらん
-    ->name('admin-mypage');
-    //タイトルごとの問題一覧画面
-    // Route::get('/mypage/list-elem1', [AdminController::class, 'AdminListElem1']) 
-    // ->name('admin-list-elem1');
-    // Route::get('/mypage/list-elem2', [AdminController::class, 'AdminListElem2']) 
-    // ->name('admin-list-elem2');
-    // Route::get('/mypage/list-elem3', [AdminController::class, 'AdminListElem3']) 
-    // ->name('admin-list-elem3');
-    // Route::get('/mypage/list-int1', [AdminController::class, 'AdminListInt1']) 
-    // ->name('admin-list-int1');
-    // Route::get('/mypage/list-int2', [AdminController::class, 'AdminListInt2']) 
-    // ->name('admin-list-int2');
-    // Route::get('/mypage/list-int3', [AdminController::class, 'AdminListInt3']) 
-    // ->name('admin-list-int3');
-    // Route::get('/mypage/list-adv1', [AdminController::class, 'AdminListAdv1']) 
-    // ->name('admin-list-adv1');
-    // Route::get('/mypage/list-adv2', [AdminController::class, 'AdminListAdv2']) 
-    // ->name('admin-list-adv2');
-    // Route::get('/mypage/list-adv3', [AdminController::class, 'AdminListAdv3']) 
-    // ->name('admin-list-adv3');
-    // Route::get('/mypage/list/add', [AdminController::class, 'AdminAdd']) 
-    // ->name('admin-add');
+        Route::get('/mypage', [AdminController::class, 'AdminMypage']) //  /admin/いらん
+        ->name('admin-mypage');
+        //タイトルごとの問題一覧画面
+        // Route::get('/mypage/list-elem1', [AdminController::class, 'AdminListElem1']) 
+        // ->name('admin-list-elem1');
+        // Route::get('/mypage/list-elem2', [AdminController::class, 'AdminListElem2']) 
+        // ->name('admin-list-elem2');
+        // Route::get('/mypage/list-elem3', [AdminController::class, 'AdminListElem3']) 
+        // ->name('admin-list-elem3');
+        // Route::get('/mypage/list-int1', [AdminController::class, 'AdminListInt1']) 
+        // ->name('admin-list-int1');
+        // Route::get('/mypage/list-int2', [AdminController::class, 'AdminListInt2']) 
+        // ->name('admin-list-int2');
+        // Route::get('/mypage/list-int3', [AdminController::class, 'AdminListInt3']) 
+        // ->name('admin-list-int3');
+        // Route::get('/mypage/list-adv1', [AdminController::class, 'AdminListAdv1']) 
+        // ->name('admin-list-adv1');
+        // Route::get('/mypage/list-adv2', [AdminController::class, 'AdminListAdv2']) 
+        // ->name('admin-list-adv2');
+        // Route::get('/mypage/list-adv3', [AdminController::class, 'AdminListAdv3']) 
+        // ->name('admin-list-adv3');
+        // Route::get('/mypage/list/add', [AdminController::class, 'AdminAdd']) 
+        // ->name('admin-add');
 
-    //初級
-    Route::get('/mypage/list-elem', [TitleController::class, 'AdminListElem']) 
-    ->name('admin-list-elem');
-    //中級
-    Route::get('/mypage/list-int', [TitleController::class, 'AdminListInt']) 
-    ->name('admin-list-int');
-    //上級
-    Route::get('/mypage/list-adv', [TitleController::class, 'AdminListAdv']) 
-    ->name('admin-list-adv');
+            //初級 viewボタンの遷移
+            Route::get('/mypage/list-elem/{id}', [TitleController::class, 'AdminListElem']) 
+            ->name('admin-list-elem');
+            //初級　クイズ一覧表示
+            // Route::get('/mypage/list-elem', [QuizController::class, 'AdminQuizElem']) 
+            // ->name('admin-quiz-elem');
+        
+            
+            //中級
+            Route::get('/mypage/list-int', [TitleController::class, 'AdminListInt']) 
+            ->name('admin-list-int');
+            //上級
+            Route::get('/mypage/list-adv', [TitleController::class, 'AdminListAdv']) 
+            ->name('admin-list-adv');
 
 
-    //管理者マイページにカテゴリーごとのタイトル名を表示
-    Route::get('/mypage', [TitleController::class, 'AdminMypageTitles']) 
-    ->name('admin-mypage-titles');
+        //管理者マイページにカテゴリーごとのタイトル名を表示
+        Route::get('/mypage', [TitleController::class, 'AdminMypageTitles']) 
+        ->name('admin-mypage-titles');
 
 });
 

@@ -72,22 +72,23 @@
 </header>
 
 <main>
+@foreach ($titles3 as $title)
 
-  <section class="py-5 text-center container">
-    <div class="row py-lg-5">
-      <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light"></h1>
-      </div>
-    </div>
-  </section>
+        
+<h1>{{ $title->title}}</h1>
+        
+@endforeach
+
+
+
+
+
 
   <div class="album py-5 bg-light">
     <div class="container">
         <!-- ここから問題一覧 -->
         <div class="row mb-3">
-
-<h1>上級問題リスト</h1>
-
+        
         
         </div>
 

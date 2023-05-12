@@ -72,22 +72,28 @@
 </header>
 
 <main>
+<!-- クリックしたクイズのタイトルと問題一覧を表示 -->
+@foreach ($titles1 as $title)
 
-  <section class="py-5 text-center container">
-    <div class="row py-lg-5">
-      <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light"></h1>
-      </div>
-    </div>
-  </section>
+        
+<h1>{{ $title->title}}</h1>
+@endforeach
+    <h2>
+    @foreach ($quizzes as $quiz)
+    <p>{{ $quiz->question}}</p>
+    
+    @endforeach
+
+    </h2>
+
+
+
 
   <div class="album py-5 bg-light">
     <div class="container">
         <!-- ここから問題一覧 -->
         <div class="row mb-3">
-
-<h1>初級問題リスト</h1>
-
+        
         
         </div>
 

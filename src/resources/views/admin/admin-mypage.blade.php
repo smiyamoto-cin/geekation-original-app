@@ -96,14 +96,14 @@
       @foreach ($titles1 as $title)
         <div class="col">
           <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">{{ $title }}</text></svg>
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">{{ $title->title}}</text></svg>
 
             <div class="card-body">
               <p class="card-text">ここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入ります</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='{{ route('admin-list-elem') }}' ">Edit</button>
+                 
+                  <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='{{ route('admin-list-elem',['id'=>$title->id]) }}' ">View</button>
                 </div>
                 <small class="text-muted">9 mins</small>
               </div>
@@ -115,14 +115,15 @@
         @foreach ($titles2 as $title)
         <div class="col">
           <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">{{ $title }}</text></svg>
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">{{ $title->title }}</text></svg>
 
             <div class="card-body">
               <p class="card-text">ここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入ります</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='{{ route('admin-list-int') }}' ">Edit</button>
+                  
+                  <a href="{{ route('admin-list-elem',[$title->id]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
+                  <!-- <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='{{ route('admin-list-int',['id'=>$title->id]) }}' ">View</button> -->
                 </div>
                 <small class="text-muted">9 mins</small>
               </div>
@@ -134,14 +135,14 @@
         @foreach ($titles3 as $title)
         <div class="col">
           <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">{{ $title }}</text></svg>
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">{{ $title->title }}</text></svg>
 
             <div class="card-body">
               <p class="card-text">ここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入ります</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='{{ route('admin-list-adv') }}' ">Edit</button>
+                  
+                  <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='{{ route('admin-list-adv',['id'=>$title->id]) }}' ">View</button>
                 </div>
                 <small class="text-muted">9 mins</small>
               </div>
