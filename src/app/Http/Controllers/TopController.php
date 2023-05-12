@@ -20,11 +20,7 @@ class TopController extends Controller
     }
 
    
-    //   管理者マイページ
-    public function AdminMypage()
-    {
-        return view('admin.admin-mypage');
-    }
+    
     //  一般マイページ
     public function UserMypage()
     {
