@@ -14,4 +14,6 @@ class QuizController extends Controller
         // dd($quizzes);
         return view('admin.admin-list-elem', compact('quizzes'));
     }
+
+    
 }

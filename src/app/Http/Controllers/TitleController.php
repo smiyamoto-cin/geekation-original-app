@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\Title;
 use App\Models\Quiz;
+use App\Models\Choice;
+
 
 use Illuminate\Http\Request;
 
@@ -16,28 +18,37 @@ class TitleController extends Controller
     $titles2 = Title::where('category_id', 2)->get();
     $titles3 = Title::where('category_id', 3)->get();
     
+    
     return view('admin.admin-mypage',compact('titles1','titles2','titles3'));
     }
-    public function AdminListElem($id)
+
+    //クリックしたタイトルごとのタイトル名と問題と選択肢を表示
+    public function AdminList($id)
     {
-        $titles1 = Title::where('id', $id)->get();
+        $titles = Title::where('id', $id)->get();
         // dd($titles1);
-        $quizzes = Quiz::all();
+        $quizzes = Quiz::where('title_id', $id)->get();
+        $choices = Choice::where('quiz_id', $id)->get();
         
-        return view('admin.admin-list-elem',compact('titles1','quizzes'));
+        return view('admin.admin-list',compact('titles','quizzes','choices'));
     }
 
-    public function AdminListInt()
-    { 
-        $titles2 = Title::where('category_id', 2)->get();
-        return view('admin.admin-list-int',compact('titles2'));
-    }
+    // public function AdminListInt()
+    // { 
+    //     $titles2 = Title::where('category_id', 2)->get();
+    //     return view('admin.admin-list-int',compact('titles2'));
+    // }
 
-    public function AdminListAdv()
-    {
-        $titles3 = Title::where('category_id', 3)->get();
-        return view('admin.admin-list-adv',compact('titles3'));
-    }
+    // public function AdminListAdv()
+    // {
+    //     $titles3 = Title::where('category_id', 3)->get();
+    //     return view('admin.admin-list-adv',compact('titles3'));
+    // }
 
+    //追加画面
+    public function AdminListAdd($id){
+        $titles = Title::where('id', $id)->get();
+        return view('admin.admin-add',compact('titles'));
+    }
 
 }

@@ -58,25 +58,23 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
         // Route::get('/mypage/list/add', [AdminController::class, 'AdminAdd']) 
         // ->name('admin-add');
 
-            //初級 viewボタンの遷移
-            Route::get('/mypage/list-elem/{id}', [TitleController::class, 'AdminListElem']) 
-            ->name('admin-list-elem');
-            //初級　クイズ一覧表示
-            // Route::get('/mypage/list-elem', [QuizController::class, 'AdminQuizElem']) 
-            // ->name('admin-quiz-elem');
-        
             
-            //中級
-            Route::get('/mypage/list-int', [TitleController::class, 'AdminListInt']) 
-            ->name('admin-list-int');
-            //上級
-            Route::get('/mypage/list-adv', [TitleController::class, 'AdminListAdv']) 
-            ->name('admin-list-adv');
-
+            
 
         //管理者マイページにカテゴリーごとのタイトル名を表示
         Route::get('/mypage', [TitleController::class, 'AdminMypageTitles']) 
         ->name('admin-mypage-titles');
+
+        //管理者マイページでviewを押した後の画面遷移 一覧表示
+        Route::get('/mypage/list/{id}', [TitleController::class, 'AdminList']) 
+        ->name('admin-list');
+
+        //管理者マイページ 追加画面
+        Route::get('/mypage/list/add/{id}', [TitleController::class, 'AdminListAdd']) 
+        ->name('admin-list-add');
+
+        
+
 
 });
 
