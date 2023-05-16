@@ -79,22 +79,21 @@
         @endforeach
         <table class="table table-bordered table table-sm">
 
-            @foreach ($quizzes as $quiz)    
+            @foreach ($quizzes as $quiz) 
             <tr>
-                    <td nowrap>
-                    <p>{{ $quiz->question}}</p>			
-                    </td>
-                    @foreach ($quiz->choices as $choice)
-                    
-                    <td nowrap>
-                    <p>{{ $choice->choice}}</p>			
-                    </td>
-                   
+                <td nowrap>
+                    <p>{{ $quiz->question }}</p>			
+                </td>
+                    @php
+                    $quizChoices = $choices->where('quiz_id', $quiz->id);
+                    @endphp
+                    @foreach ($quizChoices as $choice)
+                <td>{{ $choice->choice }}</td>
                     @endforeach
-                    <td nowrap><a href="">編集</a></td>
-						<td nowrap><a href=""
-								onclick="return confirm('本当に削除しますか？')">削除</a></td>
-            </tr>
+                </td>
+        <td nowrap><a href="">編集</a></td>
+        <td nowrap><a href="" onclick="return confirm('本当に削除しますか？')">削除</a></td>
+    </tr>
             @endforeach
   
         </table>

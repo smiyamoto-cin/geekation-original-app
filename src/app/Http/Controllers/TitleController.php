@@ -26,11 +26,10 @@ class TitleController extends Controller
     public function AdminList($id)
     {
         $titles = Title::where('id', $id)->get();
-        // dd($titles1);
-        $quizzes = Quiz::where('title_id', $id)->get();
-        $choices = Choice::where('quiz_id', $id)->get();
+        $quizzes =Quiz::where('title_id', $id)->get();
+        $choices = Choice::all();
         
-        return view('admin.admin-list',compact('titles','quizzes','choices'));
+        return view('admin.admin-list',compact('titles','choices','quizzes'));
     }
 
     // public function AdminListInt()

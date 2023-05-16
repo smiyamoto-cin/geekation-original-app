@@ -8,8 +8,8 @@
     @csrf
       {{-- タイトルフォーム --}}
       <div class="form-group w-50">
-        <label for="category-id">{{ 'タイトル' }}<span class="badge badge-danger ml-2">{{ '必須' }}</span></label>
-        <select class="form-control" id="category-id" name="category_id">
+        <label for="title">{{ 'タイトル' }}<span class="badge badge-danger ml-2">{{ '必須' }}</span></label>
+        <select class="form-control" id="title" name="title">
         @foreach ($titles as $title)
           <option value="{{ $title->id }}">{{ $title->title}}</option>
         @endforeach
@@ -18,14 +18,16 @@
 
       {{-- クイズフォーム --}}
       <div class="form-group w-25">
-        <label for="entry-fee">{{ '問題' }}<span class="badge badge-danger ml-2">{{ '必須' }}</span></label>
-        <input type="text" class="form-control" name="entry_fee" id="entry-fee">
+        <label for="question">{{ '問題' }}<span class="badge badge-danger ml-2">{{ '必須' }}</span></label>
+        <input type="text" class="form-control" name="question" id="question">
       </div>
       {{-- 選択肢フォーム --}}
       <div class="form-group w-25">
         <label for="entry-fee">{{ '選択肢' }}<span class="badge badge-danger ml-2">{{ '必須' }}</span></label>
-        <input type="text" class="form-control" name="entry_fee" id="entry-fee">
+        <input type="text" class="form-control" name="choice" id="entry-fee">
       </div>
+     
+
 
 
       <button type="submit" class="btn btn-success w-100">
