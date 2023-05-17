@@ -57,11 +57,10 @@
     @endforeach
 </div>
 
-
-
       <button type="submit" class="btn btn-success w-100" onclick="return confirm('こちらの内容で更新してよろしいですか？')">
         {{ '更新する' }}
       </button>
+      <button  onClick="history.back();">戻る</button>
     </form>
 </div>
 

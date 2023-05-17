@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\title;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -32,12 +33,16 @@ class HomeController extends Controller
     //roleごとにマイページへ
     public function index()
 {
+    $titles1 = Title::where('category_id', 1)->get();
+    $titles2 = Title::where('category_id', 2)->get();
+    $titles3 = Title::where('category_id', 3)->get();
+    
     if (Auth::user()->role == '1') {
-        return view('admin.admin-mypage');
+        return view('admin.admin-mypage',compact('titles1','titles2','titles3'));
     } elseif (Auth::user()->role == '2') {
-        return view('user.user-mypage');
+        return view('user.user-mypage',compact('titles1','titles2','titles3'));
     } elseif (Auth::user()->role == '3') {
-        return view('paid-user.paid-user-mypage');
+        return view('paid-user.paid-user-mypage',compact('titles1','titles2','titles3'));
     } else {
         return view('home');
     }

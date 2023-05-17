@@ -31,21 +31,6 @@
         <label for="question">{{ '問題' }}<span class="badge badge-danger ml-2">{{ '必須' }}</span></label>
         <input type="text" class="form-control" name="question" id="question">
       </div>
-      <!-- {{-- 選択肢1フォーム --}}
-        <div class="form-group w-25">
-        <label for="choices[]">{{ '選択肢1' }}<span class="badge badge-danger ml-2">{{ '必須' }}</span></label>
-        <input type="text" class="form-control" name="choices[]" id="choice1">
-        </div>
-        {{-- 選択肢2フォーム --}}
-        <div class="form-group w-25">
-        <label for="choices[]">{{ '選択肢2' }}<span class="badge badge-danger ml-2">{{ '必須' }}</span></label>
-        <input type="text" class="form-control" name="choices[]" id="choice2">
-        </div>
-        {{-- 選択肢3フォーム --}}
-        <div class="form-group w-25">
-        <label for="choices[]">{{ '選択肢3' }}<span class="badge badge-danger ml-2">{{ '必須' }}</span></label>
-        <input type="text" class="form-control" name="choices[]" id="choice3">
-        </div> -->
      
     {{-- 選択肢フォーム --}}
     <div class="form-group">
@@ -70,7 +55,9 @@
 
       <button type="submit" class="btn btn-success w-100">
         {{ '登録する' }}
+        <button  onClick="history.back();">戻る</button>
       </button>
+      
     </form>
 </div>
 

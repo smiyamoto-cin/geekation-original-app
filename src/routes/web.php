@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\TitleController;
 use App\Http\Controllers\TopController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -28,7 +29,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // トップ画面
 
-Route::get('/', [TopController::class, 'Top'])
+Route::get('/', [UserController::class, 'Top'])
     ->name('top');
 
 
@@ -38,27 +39,27 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
         ->name('admin-mypage');
  
         //管理者マイページにカテゴリーごとのタイトル名を表示
-        Route::get('/mypage', [TitleController::class, 'AdminMypageTitles']) 
+        Route::get('/mypage', [AdminController::class, 'AdminMypageTitles']) 
         ->name('admin-mypage-titles');
 
         //管理者マイページでviewを押した後の画面遷移 一覧表示
-        Route::get('/mypage/list/{category_id}/{title_id}', [TitleController::class, 'AdminList']) 
+        Route::get('/mypage/list/{category_id}/{title_id}', [AdminController::class, 'AdminList']) 
         ->name('admin-list');
 
         //管理者マイページ 追加画面
-        Route::get('/mypage/list/add/{category_id}/{title_id}', [TitleController::class, 'AdminListAdd']) 
+        Route::get('/mypage/list/add/{category_id}/{title_id}', [AdminController::class, 'AdminListAdd']) 
         ->name('admin-list-add');
         //管理者マイページ 　追加処理
-        Route::post('/mypage/list/add/create', [TitleController::class, 'AdminListCreate'])
+        Route::post('/mypage/list/add/create', [AdminController::class, 'AdminListCreate'])
         ->name('admin-list-create');
         //管理者マイページ 編集画面
-        Route::get('/mypage/list/edit/{category_id}/{title_id}/{quiz_id}', [TitleController::class, 'AdminListEdit']) 
+        Route::get('/mypage/list/edit/{category_id}/{title_id}/{quiz_id}', [AdminController::class, 'AdminListEdit']) 
         ->name('admin-list-edit');
         //管理者マイページ 　編集処理
-        Route::post('/mypage/list/edit/update', [TitleController::class, 'AdminListUpdate'])
+        Route::post('/mypage/list/edit/update', [AdminController::class, 'AdminListUpdate'])
         ->name('admin-list-update');
         //管理者マイページ 　削除処理
-        Route::post('/mypage/list/delete/{id}', [TitleController::class, 'AdminListDelete'])
+        Route::post('/mypage/list/delete/{id}', [AdminController::class, 'AdminListDelete'])
         ->name('admin-list-delete');
         
 
@@ -67,15 +68,21 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
 
 
 
-// 一般画面
+// 一般ユーザー画面
 Route::prefix('user')->group(function(){
-    Route::get('/mypage', [TopController::class, 'UserMypage'])
+    Route::get('/mypage', [UserController::class, 'UserMypage'])
     ->name('user-mypage');
+    //メニュー画面
+    Route::get('/mypage/menu/{category_id}/{title_id}', [UserController::class, 'UserMenu'])
+    ->name('user-menu');
+    //ユーザーマイページでviewを押した後の画面遷移 一覧表示
+    Route::get('/mypage/list/{category_id}/{title_id}', [UserController::class, 'UserList']) 
+    ->name('user-list');
 });
 
-// 有料画面
-Route::get('/paid-user/mypage', [TopController::class, 'PaidUserMypage'])
-->name('paid-user-mypage');
+// 有料ユーザー画面
+// Route::get('/paid-user/mypage', [PaidUserController::class, 'PaidUserMypage'])
+// ->name('paid-user-mypage');
 
 
 
