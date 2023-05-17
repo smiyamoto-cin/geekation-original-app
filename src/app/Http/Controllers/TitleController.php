@@ -38,15 +38,6 @@ class TitleController extends Controller
         return view('admin.admin-list',compact('categories','titles','choices','quizzes'));
     }
 
-
-    //問題追加画面
-    // public function AdminListAdd($id)
-    // {
-    //     $categories = Category::all();
-    //     $titles = Title::where('id', $id)->get();
-        
-    //     return view('admin.admin-add',compact('titles','categories'));
-    // }
     public function AdminListAdd()
     {
         // カテゴリーのデータを取得
@@ -64,45 +55,38 @@ class TitleController extends Controller
     //問題追加処理
     public function AdminListCreate(Request $request)
     {
-        // dd($request);
-        $categoryData =$request->all();
-        $titleData =$request->only('id');
-        $quizData = $request->only('question'); // クイズのデータを取得
-        $choicesData = $request->input('choice'); // 選択肢のデータを取得
-
-
-        //カテゴリー
-        $category = Category::create($categoryData);
-        $categoryID =$category->id;
+        // Quizのデータを登録
+        $quiz = Quiz::create($request->all());
+        $quiz_id = $quiz->id; // 登録されたQuizのIDを取得
+       
+        // Choiceテーブルへのデータ登録
+        $choices = $request->input('choices');
+        $choice1 = $choices[0];
+        $choice2 = $choices[1];
+        $choice3 = $choices[2];
         
-        $title = Title::create([
-            'category_id' => $categoryID,
-            'id' => $titleData
-        ]);
+        // 選択肢1を作成
+        $choiceInputs[] = [
+            'choice' => $choice1,
+            'quiz_id' => $quiz_id,
+        ];
 
-        $titleId = $title->id;
+        // 選択肢2を作成
+        $choiceInputs[] = [
+            'choice' => $choice2,
+            'quiz_id' => $quiz_id,
+        ];
 
-        // クイズを作成し、タイトルのIDを取得
-        $quiz = Quiz::create([
-            'title_id' => $titleId,
-            'question' => $quizData
-        ]);
-        
-        $quizId = $quiz->id;
+        // 選択肢3を作成
+        $choiceInputs[] = [
+            'choice' => $choice3,
+            'quiz_id' => $quiz_id,
+        ];
 
-        // 選択肢を作成し、クイズと関連付ける
-        foreach ($choicesData as $choice) {
-        Choice::create([
-            'quiz_id' => $quizId,
-            'choice' => $choice
-        ]);
+        // Choiceテーブルにデータを作成
+        Choice::insert($choiceInputs);
 
-        // $inputs =$request->all();
-        // // dd($inputs);
-        //     Quiz::create($inputs);
-        //     Choice::create($inputs);
-        return redirect()->route('admin-mypage-titles');
+        return redirect()->route('admin-list', ['category_id' => $request->category_id, 'title_id' => $request->title_id]);
+    
     }
-
-}
 }

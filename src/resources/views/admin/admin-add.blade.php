@@ -32,20 +32,20 @@
         <input type="text" class="form-control" name="question" id="question">
       </div>
       {{-- 選択肢1フォーム --}}
-      <div class="form-group w-25">
-        <label for="choice">{{ '選択肢1' }}<span class="badge badge-danger ml-2">{{ '必須' }}</span></label>
-        <input type="text" class="form-control" name="choice" id="choice">
-      </div>
-      {{-- 選択肢2フォーム --}}
-      <div class="form-group w-25">
-        <label for="choice">{{ '選択肢2' }}<span class="badge badge-danger ml-2">{{ '必須' }}</span></label>
-        <input type="text" class="form-control" name="choice" id="choice">
-      </div>
-      {{-- 選択肢3フォーム --}}
-      <div class="form-group w-25">
-        <label for="choice">{{ '選択肢3' }}<span class="badge badge-danger ml-2">{{ '必須' }}</span></label>
-        <input type="text" class="form-control" name="choice" id="choice">
-      </div>
+        <div class="form-group w-25">
+        <label for="choices[]">{{ '選択肢1' }}<span class="badge badge-danger ml-2">{{ '必須' }}</span></label>
+        <input type="text" class="form-control" name="choices[]" id="choice1">
+        </div>
+        {{-- 選択肢2フォーム --}}
+        <div class="form-group w-25">
+        <label for="choices[]">{{ '選択肢2' }}<span class="badge badge-danger ml-2">{{ '必須' }}</span></label>
+        <input type="text" class="form-control" name="choices[]" id="choice2">
+        </div>
+        {{-- 選択肢3フォーム --}}
+        <div class="form-group w-25">
+        <label for="choices[]">{{ '選択肢3' }}<span class="badge badge-danger ml-2">{{ '必須' }}</span></label>
+        <input type="text" class="form-control" name="choices[]" id="choice3">
+        </div>
      
 
 
