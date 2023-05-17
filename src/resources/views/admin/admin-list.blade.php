@@ -94,13 +94,18 @@
                 <td>{{ $choice->choice }}</td>
                     @endforeach
                 </td>
-        <td nowrap><a href="{{ route('admin-list-edit', ['category_id'=>$category->id ,'title_id'=>$title->id,'quiz_id'=>$quiz->id]) }}">編集</a></td>
-        <td nowrap><a href="" onclick="return confirm('本当に削除しますか？')">削除</a></td>
+        <td nowrap><a href="{{ route('admin-list-edit', ['category_id'=>$category->id ,'title_id'=>$title->id,'quiz_id'=>$quiz->id]) }}"><button>編集</button></a></td>
+        <td nowrap>
+            <form action="{{ route('admin-list-delete',['id'=>$quiz->id]) }}" method="POST">
+            @csrf
+            <button type="submit" onclick="return confirm('本当に削除しますか？')">削除</button>
+            </form>
+        </td>
     </tr>
             @endforeach
   
         </table>
-        <a href="{{ route('admin-list-add',['category_id'=>$category->id ,'title_id'=>$title->id])}}">問題を追加</a>
+        <a href="{{ route('admin-list-add',['category_id'=>$category->id ,'title_id'=>$title->id])}}"><button>問題を追加</button></a>
     </div>
 
 

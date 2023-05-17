@@ -86,6 +86,8 @@ class TitleController extends Controller
     //編集画面
     public function AdminListEdit($category_id,$title_id,$quiz_id)
     {
+         // セッションに値を保存
+         session(['quiz_id' => $quiz_id]);
 
         $categories = Category::where('id', $category_id)->get();
         $titles = Title::where('id', $title_id)->get();
@@ -118,5 +120,22 @@ class TitleController extends Controller
 
         return redirect()->route('admin-list', ['category_id' => $request->category_id, 'title_id' => $request->title_id]);
      
+    }
+
+    //削除処理
+    public function AdminListDelete($id)
+    {
+        // 関連するChoiceの削除
+        Choice::where('quiz_id', $id)->delete();
+        //Quizの削除
+        Quiz::destroy($id);
+       
+
+        return redirect()->route('admin-list',[
+            'category_id' => session('category_id'),
+            'title_id' => session('title_id'),
+            'quiz_id' => session('quiz_id'),
+        ])->with('success', '問題の削除に成功しました。');
+    
     }
 }
