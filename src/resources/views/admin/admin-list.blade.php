@@ -74,6 +74,9 @@
 <main>
 <!-- クリックしたクイズのタイトルと問題一覧を表示 -->
     <div class="row justify-content-center">
+    @foreach ($categories as $category)
+        <h3>{{ $category->name}}</h3>
+        @endforeach
         @foreach ($titles as $title)
         <h1>{{ $title->title}}</h1>
         @endforeach
@@ -97,7 +100,7 @@
             @endforeach
   
         </table>
-        <a href="{{ route('admin-list-add',[$title->id])}}">問題を追加</a>
+        <a href="{{ route('admin-list-add',['category_id'=>$category->id ,'title_id'=>$title->id])}}">問題を追加</a>
     </div>
 
 

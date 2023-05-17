@@ -49,4 +49,15 @@ class quiz extends Model
     {
         return $this->get();
     }
+    /**
+     * 登録処理 quizzesテーブルにデータをinsert
+     * 
+     */
+    // public function insertQuizData($request)
+    // {
+    //     return $this->create([
+    //         'title_id' => $request->title_id,
+    //         'question'       => $request->question,
+    //     ]);
+    // }
 }

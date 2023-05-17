@@ -8,6 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class category extends Model
 {
     use HasFactory;
+
+     // モデルに関連づけるテーブル
+   protected $table = 'categories';
+
+    // テーブルに関連づける主キー
+   protected $primaryKey = 'id';
+
+   // 登録・編集ができるカラム
+   protected $fillable = [
+
+    'id',
+    'name',
+];
+
     /**
      * Titlesリレーション
      */

@@ -66,12 +66,15 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
         ->name('admin-mypage-titles');
 
         //管理者マイページでviewを押した後の画面遷移 一覧表示
-        Route::get('/mypage/list/{id}', [TitleController::class, 'AdminList']) 
+        Route::get('/mypage/list/{category_id}/{title_id}', [TitleController::class, 'AdminList']) 
         ->name('admin-list');
 
-        //管理者マイページ 追加画面
-        Route::get('/mypage/list/add/{id}', [TitleController::class, 'AdminListAdd']) 
+        //管理者マイページ 問題追加画面
+        Route::get('/mypage/list/add/{category_id}/{title_id}', [TitleController::class, 'AdminListAdd']) 
         ->name('admin-list-add');
+        //管理者マイページ 　問題追加処理
+        Route::post('/mypage/list/add/create', [TitleController::class, 'AdminListCreate'])
+        ->name('admin-list-create');
 
         
 
