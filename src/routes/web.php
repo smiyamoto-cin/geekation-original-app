@@ -75,7 +75,12 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
         //管理者マイページ 　問題追加処理
         Route::post('/mypage/list/add/create', [TitleController::class, 'AdminListCreate'])
         ->name('admin-list-create');
-
+        //管理者マイページ 問題編集画面
+        Route::get('/mypage/list/edit/{category_id}/{title_id}/{quiz_id}', [TitleController::class, 'AdminListEdit']) 
+        ->name('admin-list-edit');
+        //管理者マイページ 　問題編集処理
+        Route::post('/mypage/list/edit/update', [TitleController::class, 'AdminListUpdate'])
+        ->name('admin-list-update');
         
 
 

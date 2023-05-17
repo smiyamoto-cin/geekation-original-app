@@ -58,44 +58,22 @@ class TitleController extends Controller
         // Quizのデータを登録
         $quiz = Quiz::create($request->all());
         $quiz_id = $quiz->id; // 登録されたQuizのIDを取得
+
        
-        // Choiceテーブルへのデータ登録
-        // $choices = $request->input('choices');
-        // $choice1 = $choices[0];
-        // $choice2 = $choices[1];
-        // $choice3 = $choices[2];
-        
-        // // 選択肢1を作成
-        // $choiceInputs[] = [
-        //     'choice' => $choice1,
-        //     'quiz_id' => $quiz_id,
-        // ];
-
-        // // 選択肢2を作成
-        // $choiceInputs[] = [
-        //     'choice' => $choice2,
-        //     'quiz_id' => $quiz_id,
-        // ];
-
-        // // 選択肢3を作成
-        // $choiceInputs[] = [
-        //     'choice' => $choice3,
-        //     'quiz_id' => $quiz_id,
-        // ];
-
+       
         $choices = $request->input('choices');
-$isAnswer = $request->input('is_answer');
+        $isAnswer = $request->input('is_answer');
 
-$choiceInputs = [];
+        $choiceInputs = [];
 
-foreach ($choices as $index => $choice) {
-    $isCorrect = ($index == $isAnswer) ? 1 : 0;
+        foreach ($choices as $index => $choice) {
+            $isCorrect = ($index == $isAnswer) ? 1 : 0;
 
-    $choiceInputs[] = [
-        'choice' => $choice,
-        'quiz_id' => $quiz_id,
-        'is_answer' => $isCorrect,
-    ];
+        $choiceInputs[] = [
+            'choice' => $choice,
+            'quiz_id' => $quiz_id,
+            'is_answer' => $isCorrect,
+        ];
 }
 
         // Choiceテーブルにデータを作成
@@ -103,5 +81,24 @@ foreach ($choices as $index => $choice) {
 
         return redirect()->route('admin-list', ['category_id' => $request->category_id, 'title_id' => $request->title_id]);
     
+    }
+    
+    //編集画面
+    public function AdminListEdit($category_id,$title_id,$quiz_id)
+    {
+        // $category_id = session('category_id');
+        $categories = Category::where('id', $category_id)->get();
+        
+    
+        // タイトルのデータを取得
+        // $title_id = session('title_id');
+        $titles = Title::where('id', $title_id)->get();
+
+    
+     // クイズを取得
+     $quizzes = Quiz::where('id', $quiz_id)->get();
+
+    $choices = Choice::where('quiz_id', $quiz_id)->get();
+        return view('admin.admin-edit',compact('titles', 'categories','quizzes','choices'));
     }
 }
