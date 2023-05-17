@@ -31,7 +31,7 @@
         <label for="question">{{ '問題' }}<span class="badge badge-danger ml-2">{{ '必須' }}</span></label>
         <input type="text" class="form-control" name="question" id="question">
       </div>
-      {{-- 選択肢1フォーム --}}
+      <!-- {{-- 選択肢1フォーム --}}
         <div class="form-group w-25">
         <label for="choices[]">{{ '選択肢1' }}<span class="badge badge-danger ml-2">{{ '必須' }}</span></label>
         <input type="text" class="form-control" name="choices[]" id="choice1">
@@ -45,8 +45,26 @@
         <div class="form-group w-25">
         <label for="choices[]">{{ '選択肢3' }}<span class="badge badge-danger ml-2">{{ '必須' }}</span></label>
         <input type="text" class="form-control" name="choices[]" id="choice3">
-        </div>
+        </div> -->
      
+    {{-- 選択肢フォーム --}}
+    <div class="form-group">
+        <label for="choices">選択肢</label>
+        @for ($i = 0; $i < 3; $i++)
+            <input type="text" class="form-control" name="choices[]" id="choices{{ $i + 1 }}" required>
+        @endfor
+    </div>
+
+    {{-- 正解の選択肢を選ぶ --}}
+    <div class="form-group">
+        <label>正解の選択肢</label><br>
+        @for ($i = 0; $i < 3; $i++)
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="is_answer" id="isAnswer{{ $i + 1 }}" value="{{ $i }}" required>
+                <label class="form-check-label" for="isAnswer{{ $i + 1 }}">選択肢{{ $i + 1 }}</label>
+            </div>
+        @endfor
+    </div>
 
 
 

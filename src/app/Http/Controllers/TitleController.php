@@ -60,28 +60,43 @@ class TitleController extends Controller
         $quiz_id = $quiz->id; // 登録されたQuizのIDを取得
        
         // Choiceテーブルへのデータ登録
-        $choices = $request->input('choices');
-        $choice1 = $choices[0];
-        $choice2 = $choices[1];
-        $choice3 = $choices[2];
+        // $choices = $request->input('choices');
+        // $choice1 = $choices[0];
+        // $choice2 = $choices[1];
+        // $choice3 = $choices[2];
         
-        // 選択肢1を作成
-        $choiceInputs[] = [
-            'choice' => $choice1,
-            'quiz_id' => $quiz_id,
-        ];
+        // // 選択肢1を作成
+        // $choiceInputs[] = [
+        //     'choice' => $choice1,
+        //     'quiz_id' => $quiz_id,
+        // ];
 
-        // 選択肢2を作成
-        $choiceInputs[] = [
-            'choice' => $choice2,
-            'quiz_id' => $quiz_id,
-        ];
+        // // 選択肢2を作成
+        // $choiceInputs[] = [
+        //     'choice' => $choice2,
+        //     'quiz_id' => $quiz_id,
+        // ];
 
-        // 選択肢3を作成
-        $choiceInputs[] = [
-            'choice' => $choice3,
-            'quiz_id' => $quiz_id,
-        ];
+        // // 選択肢3を作成
+        // $choiceInputs[] = [
+        //     'choice' => $choice3,
+        //     'quiz_id' => $quiz_id,
+        // ];
+
+        $choices = $request->input('choices');
+$isAnswer = $request->input('is_answer');
+
+$choiceInputs = [];
+
+foreach ($choices as $index => $choice) {
+    $isCorrect = ($index == $isAnswer) ? 1 : 0;
+
+    $choiceInputs[] = [
+        'choice' => $choice,
+        'quiz_id' => $quiz_id,
+        'is_answer' => $isCorrect,
+    ];
+}
 
         // Choiceテーブルにデータを作成
         Choice::insert($choiceInputs);
