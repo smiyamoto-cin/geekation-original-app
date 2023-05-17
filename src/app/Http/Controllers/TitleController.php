@@ -86,19 +86,26 @@ class TitleController extends Controller
     //編集画面
     public function AdminListEdit($category_id,$title_id,$quiz_id)
     {
-        // $category_id = session('category_id');
+
         $categories = Category::where('id', $category_id)->get();
-        
-    
-        // タイトルのデータを取得
-        // $title_id = session('title_id');
         $titles = Title::where('id', $title_id)->get();
+        $quizzes = Quiz::where('id', $quiz_id)->get();
+        $choices = Choice::where('quiz_id', $quiz_id)->get();
+            return view('admin.admin-edit',compact('titles', 'categories','quizzes','choices','quiz_id'));
+    }
 
-    
-     // クイズを取得
-     $quizzes = Quiz::where('id', $quiz_id)->get();
+    //問題更新処理
+    public function AdminListUpdate(Request $request)
+    {
+        $inputs =$request->all();
+      
+         // Quizのデータを更新
+        $quiz = Quiz::findOrFail($inputs['quiz_id']);
+        $quiz->title_id = $inputs['title_id'];
+        $quiz->question = $inputs['question'];
+        $quiz->save();
 
-    $choices = Choice::where('quiz_id', $quiz_id)->get();
-        return view('admin.admin-edit',compact('titles', 'categories','quizzes','choices'));
+        return redirect()->route('admin-list', ['category_id' => $request->category_id, 'title_id' => $request->title_id]);
+     
     }
 }

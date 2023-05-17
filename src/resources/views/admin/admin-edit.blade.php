@@ -6,6 +6,7 @@
 <div class="container">
     <form action="{{ route('admin-list-update') }}" method="POST">
     @csrf
+        <input type="hidden" name="quiz_id" value="{{ $quiz_id }}">
         {{-- カテゴリーフォーム --}}
       <div class="form-group w-50">
         <label for="category_id">{{ 'カテゴリー' }}<span class="badge badge-danger ml-2">{{ '必須' }}</span></label>
