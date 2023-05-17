@@ -59,6 +59,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     
+                                    <!-- logout -->
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -68,6 +69,24 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
+                                     <!-- マイページ -->
+                                    @if (Auth::user()->role === 1)
+                                        <a class="dropdown-item" href="{{ route('admin-mypage-titles') }}">
+                                            {{ __('mypage') }}
+                                        </a>
+                                    @elseif (Auth::user()->role === 2)
+                                        <a class="dropdown-item" href="{{ route('user-mypage') }}">
+                                            {{ __('mypage') }}
+                                        </a>
+                                    @elseif (Auth::user()->role === 3)
+                                        <a class="dropdown-item" href="{{ route('paid-user-mypage') }}">
+                                            {{ __('mypage') }}
+                                        </a>
+                                    @endif
+                                    <!-- toppage -->
+                                    <a class="dropdown-item" href="{{'/'}}">
+                                        {{ __('top') }}
+                                    </a>
                                 </div>
                                 
                                 

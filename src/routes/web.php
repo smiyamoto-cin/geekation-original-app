@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\TitleController;
 use App\Http\Controllers\TopController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -28,7 +29,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // トップ画面
 
-Route::get('/', [TopController::class, 'Top'])
+Route::get('/', [UserController::class, 'Top'])
     ->name('top');
 
 
@@ -36,46 +37,30 @@ Route::get('/', [TopController::class, 'Top'])
 Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
         Route::get('/mypage', [AdminController::class, 'AdminMypage']) //  /admin/いらん
         ->name('admin-mypage');
-        //タイトルごとの問題一覧画面
-        // Route::get('/mypage/list-elem1', [AdminController::class, 'AdminListElem1']) 
-        // ->name('admin-list-elem1');
-        // Route::get('/mypage/list-elem2', [AdminController::class, 'AdminListElem2']) 
-        // ->name('admin-list-elem2');
-        // Route::get('/mypage/list-elem3', [AdminController::class, 'AdminListElem3']) 
-        // ->name('admin-list-elem3');
-        // Route::get('/mypage/list-int1', [AdminController::class, 'AdminListInt1']) 
-        // ->name('admin-list-int1');
-        // Route::get('/mypage/list-int2', [AdminController::class, 'AdminListInt2']) 
-        // ->name('admin-list-int2');
-        // Route::get('/mypage/list-int3', [AdminController::class, 'AdminListInt3']) 
-        // ->name('admin-list-int3');
-        // Route::get('/mypage/list-adv1', [AdminController::class, 'AdminListAdv1']) 
-        // ->name('admin-list-adv1');
-        // Route::get('/mypage/list-adv2', [AdminController::class, 'AdminListAdv2']) 
-        // ->name('admin-list-adv2');
-        // Route::get('/mypage/list-adv3', [AdminController::class, 'AdminListAdv3']) 
-        // ->name('admin-list-adv3');
-        // Route::get('/mypage/list/add', [AdminController::class, 'AdminAdd']) 
-        // ->name('admin-add');
-
-            
-            
-
+ 
         //管理者マイページにカテゴリーごとのタイトル名を表示
-        Route::get('/mypage', [TitleController::class, 'AdminMypageTitles']) 
+        Route::get('/mypage', [AdminController::class, 'AdminMypageTitles']) 
         ->name('admin-mypage-titles');
 
         //管理者マイページでviewを押した後の画面遷移 一覧表示
-        Route::get('/mypage/list/{category_id}/{title_id}', [TitleController::class, 'AdminList']) 
+        Route::get('/mypage/list/{category_id}/{title_id}', [AdminController::class, 'AdminList']) 
         ->name('admin-list');
 
-        //管理者マイページ 問題追加画面
-        Route::get('/mypage/list/add/{category_id}/{title_id}', [TitleController::class, 'AdminListAdd']) 
+        //管理者マイページ 追加画面
+        Route::get('/mypage/list/add/{category_id}/{title_id}', [AdminController::class, 'AdminListAdd']) 
         ->name('admin-list-add');
-        //管理者マイページ 　問題追加処理
-        Route::post('/mypage/list/add/create', [TitleController::class, 'AdminListCreate'])
+        //管理者マイページ 　追加処理
+        Route::post('/mypage/list/add/create', [AdminController::class, 'AdminListCreate'])
         ->name('admin-list-create');
-
+        //管理者マイページ 編集画面
+        Route::get('/mypage/list/edit/{category_id}/{title_id}/{quiz_id}', [AdminController::class, 'AdminListEdit']) 
+        ->name('admin-list-edit');
+        //管理者マイページ 　編集処理
+        Route::post('/mypage/list/edit/update', [AdminController::class, 'AdminListUpdate'])
+        ->name('admin-list-update');
+        //管理者マイページ 　削除処理
+        Route::post('/mypage/list/delete/{id}', [AdminController::class, 'AdminListDelete'])
+        ->name('admin-list-delete');
         
 
 
@@ -83,15 +68,21 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
 
 
 
-// 一般画面
+// 一般ユーザー画面
 Route::prefix('user')->group(function(){
-    Route::get('/mypage', [TopController::class, 'UserMypage'])
+    Route::get('/mypage', [UserController::class, 'UserMypage'])
     ->name('user-mypage');
+    //メニュー画面
+    Route::get('/mypage/menu/{category_id}/{title_id}', [UserController::class, 'UserMenu'])
+    ->name('user-menu');
+    //ユーザーマイページでviewを押した後の画面遷移 一覧表示
+    Route::get('/mypage/list/{category_id}/{title_id}', [UserController::class, 'UserList']) 
+    ->name('user-list');
 });
 
-// 有料画面
-Route::get('/paid-user/mypage', [TopController::class, 'PaidUserMypage'])
-->name('paid-user-mypage');
+// 有料ユーザー画面
+// Route::get('/paid-user/mypage', [PaidUserController::class, 'PaidUserMypage'])
+// ->name('paid-user-mypage');
 
 
 

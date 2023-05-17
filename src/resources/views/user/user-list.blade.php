@@ -94,22 +94,14 @@
                 <td>{{ $choice->choice }}</td>
                     @endforeach
                 </td>
-        <td nowrap><a href="{{ route('admin-list-edit', ['category_id'=>$category->id ,'title_id'=>$title->id,'quiz_id'=>$quiz->id]) }}"><button>編集</button></a></td>
-        <td nowrap>
-            <form action="{{ route('admin-list-delete',['id'=>$quiz->id]) }}" method="POST">
-            @csrf
-            <button type="submit" onclick="return confirm('本当に削除しますか？')">削除</button>
-            </form>
-        </td>
     </tr>
             @endforeach
   
         </table>
-        <a href="{{ route('admin-list-add',['category_id'=>$category->id ,'title_id'=>$title->id])}}"><button>問題を追加</button></a>
-        <a href="{{ route('admin-mypage-titles')}}"><button>戻る</button></a>
+        <a href="{{ route('user-menu',['category_id'=>$category->id ,'title_id'=>$title->id])}}"><button>戻る</button></a>
     </div>
 
-        
+
 </main>
 
 <footer class="text-muted py-5">
