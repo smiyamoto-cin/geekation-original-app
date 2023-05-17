@@ -74,31 +74,33 @@
 <main>
 <!-- クリックしたクイズのタイトルと問題一覧を表示 -->
     <div class="row justify-content-center">
+    @foreach ($categories as $category)
+        <h3>{{ $category->name}}</h3>
+        @endforeach
         @foreach ($titles as $title)
         <h1>{{ $title->title}}</h1>
         @endforeach
         <table class="table table-bordered table table-sm">
 
-            @foreach ($quizzes as $quiz)    
+            @foreach ($quizzes as $quiz) 
             <tr>
-                    <td nowrap>
-                    <p>{{ $quiz->question}}</p>			
-                    </td>
-                    @foreach ($quiz->choices as $choice)
-                    
-                    <td nowrap>
-                    <p>{{ $choice->choice}}</p>			
-                    </td>
-                   
+                <td nowrap>
+                    <p>{{ $quiz->question }}</p>			
+                </td>
+                    @php
+                    $quizChoices = $choices->where('quiz_id', $quiz->id);
+                    @endphp
+                    @foreach ($quizChoices as $choice)
+                <td>{{ $choice->choice }}</td>
                     @endforeach
-                    <td nowrap><a href="">編集</a></td>
-						<td nowrap><a href=""
-								onclick="return confirm('本当に削除しますか？')">削除</a></td>
-            </tr>
+                </td>
+        <td nowrap><a href="">編集</a></td>
+        <td nowrap><a href="" onclick="return confirm('本当に削除しますか？')">削除</a></td>
+    </tr>
             @endforeach
   
         </table>
-        <a href="{{ route('admin-list-add',[$title->id])}}">問題を追加</a>
+        <a href="{{ route('admin-list-add',['category_id'=>$category->id ,'title_id'=>$title->id])}}">問題を追加</a>
     </div>
 
 

@@ -97,7 +97,7 @@
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                 
-                <a href="{{ route('admin-list',[$title->id])}}"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
+                <a href="{{ route('admin-list',['category_id'=>'1' ,'title_id'=>$title->id])}}"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
                 
                 </div>
                 <small class="text-muted">9 mins</small>
@@ -118,7 +118,7 @@
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   
-                  <a href="{{ route('admin-list',[$title->id]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
+                  <a href="{{ route('admin-list',['category_id'=>'2' ,'title_id'=>$title->id]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
                   
                 </div>
                 <small class="text-muted">9 mins</small>
@@ -138,7 +138,7 @@
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   
-                <a href="{{ route('admin-list',[$title->id]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
+                <a href="{{ route('admin-list',['category_id'=>'3','title_id'=>$title->id]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
                 </div>
                 <small class="text-muted">9 mins</small>
               </div>
