@@ -105,6 +105,17 @@ class TitleController extends Controller
         $quiz->question = $inputs['question'];
         $quiz->save();
 
+        //Choiceのデータを更新
+        $choices = Choice::where('quiz_id', $inputs['quiz_id'])->get();
+        foreach ($choices as $index => $choice) 
+        {
+        $isCorrect = ($index == $inputs['is_answer']) ? 1 : 0;
+        $choice->choice = $inputs['choices'][$index];
+        $choice->is_answer = $isCorrect;
+        $choice->save();
+        }
+        
+
         return redirect()->route('admin-list', ['category_id' => $request->category_id, 'title_id' => $request->title_id]);
      
     }
