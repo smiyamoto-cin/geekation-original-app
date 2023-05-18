@@ -68,17 +68,24 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
 
 
 
-// 一般ユーザー画面
-Route::prefix('user')->group(function(){
-    Route::get('/mypage', [UserController::class, 'UserMypage'])
-    ->name('user-mypage');
-    //メニュー画面
-    Route::get('/mypage/menu/{category_id}/{title_id}', [UserController::class, 'UserMenu'])
-    ->name('user-menu');
-    //ユーザーマイページでviewを押した後の画面遷移 一覧表示
-    Route::get('/mypage/list/{category_id}/{title_id}', [UserController::class, 'UserList']) 
-    ->name('user-list');
-});
+    // 一般ユーザー画面
+    Route::prefix('user')->group(function(){
+        Route::get('/mypage', [UserController::class, 'UserMypage'])
+        ->name('user-mypage');
+        //メニュー画面
+        Route::get('/mypage/menu/{category_id}/{title_id}', [UserController::class, 'UserMenu'])
+        ->name('user-menu');
+        //ユーザーマイページでviewを押した後の画面遷移 一覧表示
+        Route::get('/mypage/list/{category_id}/{title_id}', [UserController::class, 'UserList']) 
+        ->name('user-list');
+        //クイズ回答画面
+        Route::get('/mypage/quiz/{category_id}/{title_id}/{quiz_id}', [UserController::class, 'UserQuiz']) 
+        ->name('user-quiz');
+        //クイズ回答登録処理
+        Route::post('/mypage/quiz-update/{category_id}/{title_id}/{quiz_id}', [UserController::class, 'UserAnswerUpdate']) 
+        ->name('user-answer-update');
+        
+    });
 
 // 有料ユーザー画面
 // Route::get('/paid-user/mypage', [PaidUserController::class, 'PaidUserMypage'])

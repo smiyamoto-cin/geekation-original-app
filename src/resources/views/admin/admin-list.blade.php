@@ -48,85 +48,52 @@
     
   </head>
   <body>
-    
-<header>
-  <div class="collapse bg-dark" id="navbarHeader">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-8 col-md-7 py-4">
-          <h4 class="text-white">About</h4>
-          <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
-        </div>
-        <div class="col-sm-4 offset-md-1 py-4">
-          <h4 class="text-white">Contact</h4>
-          <ul class="list-unstyled">
-            <li><a href="#" class="text-white">Follow on Twitter</a></li>
-            <li><a href="#" class="text-white">Like on Facebook</a></li>
-            <li><a href="#" class="text-white">Email me</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-</header>
-
-<main>
-<!-- クリックしたクイズのタイトルと問題一覧を表示 -->
-    <div class="row justify-content-center">
-    @foreach ($categories as $category)
-        <h3>{{ $category->name}}</h3>
-        @endforeach
-        @foreach ($titles as $title)
-        <h1>{{ $title->title}}</h1>
-        @endforeach
-        <table class="table table-bordered table table-sm">
-
-            @foreach ($quizzes as $quiz) 
-            <tr>
-                <td nowrap>
-                    <p>{{ $quiz->question }}</p>			
-                </td>
-                    @php
-                    $quizChoices = $choices->where('quiz_id', $quiz->id);
-                    @endphp
-                    @foreach ($quizChoices as $choice)
-                <td>{{ $choice->choice }}</td>
-                    @endforeach
-                </td>
-        <td nowrap><a href="{{ route('admin-list-edit', ['category_id'=>$category->id ,'title_id'=>$title->id,'quiz_id'=>$quiz->id]) }}"><button>編集</button></a></td>
-        <td nowrap>
-            <form action="{{ route('admin-list-delete',['id'=>$quiz->id]) }}" method="POST">
-            @csrf
-            <button type="submit" onclick="return confirm('本当に削除しますか？')">削除</button>
-            </form>
-        </td>
-    </tr>
-            @endforeach
-  
-        </table>
-        <a href="{{ route('admin-list-add',['category_id'=>$category->id ,'title_id'=>$title->id])}}"><button>問題を追加</button></a>
-        <a href="{{ route('admin-mypage-titles')}}"><button>戻る</button></a>
-    </div>
-
-        
-</main>
-
-<footer class="text-muted py-5">
   <div class="container">
-    <p class="float-end mb-1">
-      <a href="#">Back to top</a>
-    </p>
-    <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-    <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="/docs/5.0/getting-started/introduction/">getting started guide</a>.</p>
-  </div>
-</footer>
 
+    <main>
+    <!-- クリックしたクイズのタイトルと問題一覧を表示 -->
+        <div class="row justify-content-center">
+        @foreach ($categories as $category)
+            <h3>{{ $category->name}}</h3>
+            @endforeach
+            @foreach ($titles as $title)
+            <h1>{{ $title->title}}</h1>
+            @endforeach
+            <table class="table table-bordered table table-sm">
+
+                @foreach ($quizzes as $quiz) 
+                <tr>
+                    <td nowrap>
+                        <p>{{ $quiz->question }}</p>			
+                    </td>
+                        @php
+                        $quizChoices = $choices->where('quiz_id', $quiz->id);
+                        @endphp
+                        @foreach ($quizChoices as $choice)
+                    <td>{{ $choice->choice }}</td>
+                        @endforeach
+                    </td>
+            <td nowrap><a href="{{ route('admin-list-edit', ['category_id'=>$category->id ,'title_id'=>$title->id,'quiz_id'=>$quiz->id]) }}"><button>編集</button></a></td>
+            <td nowrap>
+                <form action="{{ route('admin-list-delete',['id'=>$quiz->id]) }}" method="POST">
+                @csrf
+                <button type="submit" onclick="return confirm('本当に削除しますか？')">削除</button>
+                </form>
+            </td>
+        </tr>
+                @endforeach
+    
+            </table>
+            <a href="{{ route('admin-list-add',['category_id'=>$category->id ,'title_id'=>$title->id])}}"><button>問題を追加</button></a>
+            <a href="{{ route('admin-mypage-titles')}}"><button>戻る</button></a>
+        </div>
+
+            
+    </main>
 
     <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-      
   </body>
+</div>
 </html>
 
 @endsection
