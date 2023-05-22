@@ -115,15 +115,6 @@ class UserController extends Controller
         // 正誤判定の結果と正解数をセッションに保存
         // $request->session()->flash('result', $isCorrect);
         $request->session()->put('correct_answers_count', $correctAnswersCount);
-   
-
-        // 次の問題へのリダイレクト
-        // return redirect()->route('quiz.result', [
-        //     'category_id' => $category_id,
-        //     'title_id' => $title_id,
-        //     'quiz_id' => $choice->quiz_id,
-        //     'result' =>$isCorrect,
-        // ]);
 
         $quiz = Quiz::findOrFail($quiz_id);
 
@@ -133,7 +124,6 @@ class UserController extends Controller
     public function nextQuiz($category_id, $title_id, $quiz_id)
     {
         $category = Category::findOrFail($category_id);
-        Log::debug($category_id);
         $title = Title::findOrFail($title_id);
         $nextQuiz = Quiz::where('title_id', $title_id)->where('id', '>', $quiz_id)->first();
         $result = request()->query('result');
@@ -157,7 +147,7 @@ class UserController extends Controller
         $category = Category::find($category_id);
         $title = Title::find($title_id);
         $user_id = auth()->user()->id;
-        
+        $quiz=Quiz::find($quiz_id);
 
         
         // ユーザーの回答履歴を取得
@@ -166,12 +156,31 @@ class UserController extends Controller
         // 全問題数を取得
         $totalQuestions = Quiz::where('title_id', $title_id)->count();
 
-    
-        // // 正解数を受け取る
-        //  $correctAnswersCount = $correct_answers_count;
-        
         
 
-        return view('user.user-final-result',compact('category','title', 'totalQuestions','correctAnswersCount'));
+        return view('user.user-final-result',compact('category','title', 'totalQuestions','correctAnswersCount','quiz'));
     }
+
+        //正誤一覧を表示
+    public function UserResultList($category_id, $title_id, $quiz_id)
+    {
+        $categories = Category::where('id', $category_id)->get();
+        $titles = Title::where('id', $title_id)->get();
+        $quizzes = Quiz::where('title_id', $title_id)->get();
+        
+        
+        $choices=Choice::get();
+        
+
+        // 回答履歴を取得
+        $answerHistory = Answer_History::where('quiz_id', $quiz_id)
+            ->where('user_id', auth()->user()->id)
+            ->first();
+        
+        // 正解の選択肢を取得
+        $correctAnswer = $answerHistory->correct_answer;
+        
+        return view('user.user-result-list', compact('titles', 'quizzes','choices' ,'correctAnswer'));
+    }
+
 }

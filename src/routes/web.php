@@ -89,7 +89,8 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
         Route::get('/mypage/quiz/{category_id}/{title_id}/{quiz_id}', [UserController::class, 'nextQuiz'])->name('quiz.next');
         //結果画面
         Route::get('/mypage/quiz/result/{category_id}/{title_id}/{quiz_id}', [UserController::class, 'finalResult'])->name('quiz.finalResult');
-        
+       //正誤一覧画面
+       Route::get('/mypage/quiz/result-list/{category_id}/{title_id}/{quiz_id}', [UserController::class, 'UserResultList'])->name('quiz.resultList'); 
         
     });
 
