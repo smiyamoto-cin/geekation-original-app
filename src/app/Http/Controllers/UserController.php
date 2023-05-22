@@ -168,19 +168,29 @@ class UserController extends Controller
         $titles = Title::where('id', $title_id)->get();
         $quizzes = Quiz::where('title_id', $title_id)->get();
         
+        foreach($quizzes as $quiz){
+            
+            
+            $choices=Choice::get();
         
-        $choices=Choice::get();
-        
-
-        // 回答履歴を取得
-        $answerHistory = Answer_History::where('quiz_id', $quiz_id)
+            $latestIds = Answer_History::selectRaw('MAX(id) as max_id')
             ->where('user_id', auth()->user()->id)
-            ->first();
+            ->groupBy('quiz_id')
+            ->pluck('max_id');
+
+            $answerHistories = Answer_History::whereIn('id', $latestIds)
+            ->orderBy('id', 'desc')
+            ->get();
+            
+            
+            $quizAnswerHistories = $answerHistories->where('quiz_id', $quiz->id);
+            };
         
-        // 正解の選択肢を取得
-        $correctAnswer = $answerHistory->correct_answer;
+    
+        // foreach($answerHistories as $answerHistory)
+        // $userChoice = Choice::find($answerHistory->user_answer);
         
-        return view('user.user-result-list', compact('titles', 'quizzes','choices' ,'correctAnswer'));
+        return view('user.user-result-list', compact('titles', 'quizzes','choices' ,'answerHistories','quizAnswerHistories'));
     }
 
 }

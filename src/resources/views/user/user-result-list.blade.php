@@ -2,6 +2,7 @@
 
 @section('content')
 
+
 <!doctype html>
 <html lang="ja">
   <head>
@@ -77,13 +78,26 @@
                 @php
                 $quizChoices = $choices->where('quiz_id', $quiz->id)
                 ->where('is_answer',1);
+                
                 @endphp
                 @foreach ($quizChoices as $choice)
                     <p>{{ $choice->choice }}</p>
                 @endforeach
                 
             </td>
-            <td></td>
+            <td>
+                @php
+                $quizAnswerHistories = $answerHistories->where('quiz_id', $quiz->id);
+                @endphp
+                @foreach ($quizAnswerHistories as $answerHistory)
+    @php
+        $choice = \App\Models\Choice::find($answerHistory->user_answer);
+    @endphp
+
+    @if ($choice)
+        <p>{{ $choice->choice }}</p>
+    @endif
+@endforeach
             <td nowrap>
                 <p>⭕️</p>
             </td>
