@@ -78,12 +78,18 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
         //ユーザーマイページでviewを押した後の画面遷移 一覧表示
         Route::get('/mypage/list/{category_id}/{title_id}', [UserController::class, 'UserList']) 
         ->name('user-list');
-        //クイズ回答画面
-        Route::get('/mypage/quiz/{category_id}/{title_id}/{quiz_id}', [UserController::class, 'UserQuiz']) 
-        ->name('user-quiz');
-        //クイズ回答登録処理
-        Route::post('/mypage/quiz-update/{category_id}/{title_id}/{quiz_id}', [UserController::class, 'UserAnswerUpdate']) 
-        ->name('user-answer-update');
+
+        /*
+        *クイズ表示、回答、次の問題
+        */
+        //クイズ一問目表示
+        Route::get('/mypage/quiz/{category_id}/{title_id}', [UserController::class, 'showQuiz'])->name('quiz.show');
+        //クイズの回答をanswer_historiesに登録
+        Route::post('/mypage/quiz/', [UserController::class, 'submitAnswer'])->name('quiz.submit');
+        Route::get('/mypage/quiz/{category_id}/{title_id}/{quiz_id}', [UserController::class, 'nextQuiz'])->name('quiz.next');
+        //結果画面
+        Route::get('/mypage/quiz/result/{category_id}/{title_id}/{quiz_id}', [UserController::class, 'finalResult'])->name('quiz.finalResult');
+        
         
     });
 

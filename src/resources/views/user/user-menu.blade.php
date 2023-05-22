@@ -52,7 +52,7 @@
   <div class="container">
 
     <main>
-        <main>
+    
             <section class="py-5 text-center container">
                 <div class="row py-lg-5">
                     <div class="col-lg-6 col-md-8 mx-auto">
@@ -62,6 +62,9 @@
                             @endforeach
                             @foreach ($titles as $title)
                             <h1>{{ $title->title}}</h1>
+                            @endforeach
+                            @foreach ($quizzes as $quiz)
+                            <input type="hidden" name="quiz_id" value="{{ $quiz->question}}">
                             @endforeach
                     
                             
@@ -81,7 +84,7 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                 
-                                <a href="{{ route('user-list',['category_id'=>'1' ,'title_id'=>$title->id])}}"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
+                                <a href="{{ route('user-list',['category_id'=>$category->id ,'title_id'=>$title->id])}}"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
                                 
                                 </div>
                                 <small class="text-muted">9 mins</small>
@@ -98,7 +101,7 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                 
-                                <a href=""><button type="button" class="btn btn-sm btn-outline-secondary">Start</button></a>
+                                <a href="{{ route('quiz.show', ['category_id'=>$category->id,'title_id'=>$title->id])}}"><button type="button" class="btn btn-sm btn-outline-secondary">Start</button></a>
                                 
                                 </div>
                                 <small class="text-muted">9 mins</small>
