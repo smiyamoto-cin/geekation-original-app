@@ -90,17 +90,39 @@
                 $quizAnswerHistories = $answerHistories->where('quiz_id', $quiz->id);
                 @endphp
                 @foreach ($quizAnswerHistories as $answerHistory)
-    @php
-        $choice = \App\Models\Choice::find($answerHistory->user_answer);
-    @endphp
+                @php
+                    $choice = \App\Models\Choice::find($answerHistory->user_answer);
+                @endphp
 
-    @if ($choice)
-        <p>{{ $choice->choice }}</p>
+                @if ($choice)
+                    <p>{{ $choice->choice }}</p>
+                @endif
+            @endforeach
+             </td>
+             <td nowrap>
+    @php
+    $quizChoices = $choices->where('quiz_id', $quiz->id)
+                            ->where('is_answer', 1);
+                            
+    $quizAnswerHistories = $answerHistories->where('quiz_id', $quiz->id);
+    @endphp
+    
+    @if ($quizChoices->count() > 0 && $quizAnswerHistories->count() > 0)
+        @foreach ($quizAnswerHistories as $answerHistory)
+            @php
+            $choice = \App\Models\Choice::find($answerHistory->user_answer);
+            @endphp
+            
+            @if ($quizChoices->contains('id', $answerHistory->user_answer))
+                <p>✅</p>
+            @else
+                <p>❌</p>
+            @endif
+        @endforeach
+    @else
+        <p>❌</p>
     @endif
-@endforeach
-            <td nowrap>
-                <p>⭕️</p>
-            </td>
+</td>
         </tr>
         
     @endforeach

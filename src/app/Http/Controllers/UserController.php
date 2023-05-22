@@ -168,7 +168,7 @@ class UserController extends Controller
         $titles = Title::where('id', $title_id)->get();
         $quizzes = Quiz::where('title_id', $title_id)->get();
         
-        foreach($quizzes as $quiz){
+        
             
             
             $choices=Choice::get();
@@ -181,16 +181,12 @@ class UserController extends Controller
             $answerHistories = Answer_History::whereIn('id', $latestIds)
             ->orderBy('id', 'desc')
             ->get();
-            
-            
-            $quizAnswerHistories = $answerHistories->where('quiz_id', $quiz->id);
-            };
         
     
         // foreach($answerHistories as $answerHistory)
         // $userChoice = Choice::find($answerHistory->user_answer);
         
-        return view('user.user-result-list', compact('titles', 'quizzes','choices' ,'answerHistories','quizAnswerHistories'));
+        return view('user.user-result-list', compact('titles', 'quizzes','choices' ,'answerHistories'));
     }
 
 }
