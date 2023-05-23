@@ -37,6 +37,7 @@
         -moz-user-select: none;
         user-select: none;
       }
+      
 
       @media (min-width: 768px) {
         .bd-placeholder-img-lg {
@@ -52,41 +53,63 @@
 
     <main>
     <!-- クリックしたクイズのタイトルと問題一覧を表示 -->
-        <div class="row justify-content-center">
-        @foreach ($categories as $category)
-            <h3>{{ $category->name}}</h3>
-            @endforeach
+        <div class="row justify-content-center text-center my-3" >
+            @foreach ($categories as $category)
             @foreach ($titles as $title)
-            <h1>{{ $title->title}}</h1>
+            <h4><span style="color: #696969;">{{ $category->name}}　{{ $title->title}}</span></h4>
             @endforeach
-            <table class="table table-bordered table table-sm">
-
-                @foreach ($quizzes as $quiz) 
-                <tr>
-                    <td nowrap>
-                        <p>{{ $quiz->question }}</p>			
-                    </td>
-                        @php
-                        $quizChoices = $choices->where('quiz_id', $quiz->id);
-                        @endphp
-                        @foreach ($quizChoices as $choice)
-                    <td>{{ $choice->choice }}</td>
-                        @endforeach
-                    </td>
-            <td nowrap><a href="{{ route('admin-list-edit', ['category_id'=>$category->id ,'title_id'=>$title->id,'quiz_id'=>$quiz->id]) }}"><button>編集</button></a></td>
-            <td nowrap>
-                <form action="{{ route('admin-list-delete',['id'=>$quiz->id]) }}" method="POST">
-                @csrf
-                <button type="submit" onclick="return confirm('本当に削除しますか？')">削除</button>
-                </form>
-            </td>
-        </tr>
-                @endforeach
+            @endforeach
+        <div class="row justify-content-center text-center my-1">
+        <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">英単語</th>
+      <th scope="col">選択肢1</th>
+      <th scope="col">選択肢2</th>
+      <th scope="col">選択肢3</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+  @foreach ($quizzes as $quiz) 
+    <tr>
+      <th scope="row">{{ $quiz->question }}</th>
+      @php
+        $quizChoices = $choices->where('quiz_id', $quiz->id);
+        @endphp
+        @foreach ($quizChoices as $choice)
+      <td>{{ $choice->choice }}</td>
+      @endforeach
+      <td><a href="{{ route('admin-list-edit', ['category_id'=>$category->id ,'title_id'=>$title->id,'quiz_id'=>$quiz->id]) }}"><button class="btn btn-success">編集</button></a></td>
+      <td>
+      <form action="{{ route('admin-list-delete',['id'=>$quiz->id]) }}" method="POST">
+        @csrf
+        <button type="submit" class="btn btn-secondary" onclick="return confirm('本当に削除しますか？')">削除</button>
+        </form>
+      </td>
+    </tr>
+    @endforeach
     
-            </table>
-            <a href="{{ route('admin-list-add',['category_id'=>$category->id ,'title_id'=>$title->id])}}"><button>問題を追加</button></a>
-            <a href="{{ route('admin-mypage-titles')}}"><button>戻る</button></a>
+  </tbody>
+</table>
+        
+        <!-- 登録成功メッセージとエラーメッセージ -->
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
         </div>
+    @endif
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+    
+            <a href="{{ route('admin-list-add',['category_id'=>$category->id ,'title_id'=>$title->id])}}"><button class="btn btn-success my-2">問題を追加</button></a>
+            <a href="{{ route('admin-mypage-titles')}}"><button class="btn btn-outline-secondary">戻る</button></a>
+        </div>
+    </div>
 
             
     </main>

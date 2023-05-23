@@ -38,6 +38,9 @@
         -moz-user-select: none;
         user-select: none;
       }
+      .w-500px {
+        width: 500px !important;
+        }
 
       @media (min-width: 768px) {
         .bd-placeholder-img-lg {
@@ -48,40 +51,19 @@
 
     
   </head>
-  <body>
+  <body style="background-color: #FDF5E6;">
     
-<header>
-  <div class="collapse bg-dark" id="navbarHeader">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-8 col-md-7 py-4">
-          <h4 class="text-white">About</h4>
-          <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
-        </div>
-        <div class="col-sm-4 offset-md-1 py-4">
-          <h4 class="text-white">Contact</h4>
-          <ul class="list-unstyled">
-            <li><a href="#" class="text-white">Follow on Twitter</a></li>
-            <li><a href="#" class="text-white">Like on Facebook</a></li>
-            <li><a href="#" class="text-white">Email me</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-</header>
 
 <main>
-  <section class="py-5 text-center container">
-    <div class="row py-lg-5">
+  <section class="pt-2 text-center container">
+    <div class="row pt-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">管理者画面</h1>
+        <h4 class="fw-light"><span style="color: #696969;">管理メニュー</span></h4>
       </div>
     </div>
   </section>
   
-  <div class="album py-5 bg-light">
+  <div class="album py-5">
     <div class="container">
 
     
@@ -89,61 +71,27 @@
         <!-- 初級 -->
       @foreach ($titles1 as $title) 
         <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">{{ $title->title}}</text></svg>
-
-            <div class="card-body">
-              <p class="card-text">ここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入ります</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                
-                <a href="{{ route('admin-list',['category_id'=>'1' ,'title_id'=>$title->id])}}"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
-                
-                </div>
-                <small class="text-muted">9 mins</small>
-              </div>
+            <div class="d-flex justify-content-center mb-3" >
+                <a href="{{ route('admin-list',['category_id'=>'1' ,'title_id'=>$title->id])}}"><button type="button" class="btn btn-outline-success" style="height:8rem; width:20rem;">Beginner<br>{{ $title->title}}(編集)</button></a>
             </div>
-          </div>
         </div>
         
         @endforeach
         <!-- 中級 -->
         @foreach ($titles2 as $title)
         <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">{{ $title->title }}</text></svg>
-
-            <div class="card-body">
-              <p class="card-text">ここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入ります</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  
-                  <a href="{{ route('admin-list',['category_id'=>'2' ,'title_id'=>$title->id]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
-                  
-                </div>
-                <small class="text-muted">9 mins</small>
-              </div>
+            <div class="d-flex justify-content-center mb-3">
+                  <a href="{{ route('admin-list',['category_id'=>'2' ,'title_id'=>$title->id]) }}"><button type="button" class="btn btn-outline-primary" style="height:8rem; width:20rem;"> Intermediate<br>{{ $title->title }}(編集)</button></a>
             </div>
-          </div>
         </div>
+        
         @endforeach
         <!-- 上級 -->
         @foreach ($titles3 as $title)
         <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">{{ $title->title }}</text></svg>
-
-            <div class="card-body">
-              <p class="card-text">ここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入ります</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  
-                <a href="{{ route('admin-list',['category_id'=>'3','title_id'=>$title->id]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
-                </div>
-                <small class="text-muted">9 mins</small>
-              </div>
+            <div class="d-flex justify-content-center mb-5">
+                <a href="{{ route('admin-list',['category_id'=>'3','title_id'=>$title->id]) }}"><button type="button" class="btn btn-outline-danger " style="height:8rem; width:20rem;">Advanced<br>{{ $title->title }}(編集)</button></a>
             </div>
-          </div>
         </div>
         @endforeach
 
@@ -154,15 +102,6 @@
 
 </main>
 
-<footer class="text-muted py-5">
-  <div class="container">
-    <p class="float-end mb-1">
-      <a href="#">Back to top</a>
-    </p>
-    <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-    <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="/docs/5.0/getting-started/introduction/">getting started guide</a>.</p>
-  </div>
-</footer>
 
 
     <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
