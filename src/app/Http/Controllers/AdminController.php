@@ -60,7 +60,7 @@ class AdminController extends Controller
         // Quizのデータを登録
         $quiz = Quiz::create($request->all());
         $quiz_id = $quiz->id; // 登録されたQuizのIDを取得
-
+        
        
        
         $choices = $request->input('choices');

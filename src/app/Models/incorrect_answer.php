@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class incorrect_answer extends Model
 {
     use HasFactory;
+    protected $table = 'incorrect_answers';
+    protected $fillable = ['user_id', 'quiz_id', 'correct_answer'];
 }

@@ -74,11 +74,31 @@
                 <td>{{ $choice->choice }}</td>
                     @endforeach
                 </td>
+                <td nowrap>
+                <form action="{{route ('favorite-words',['id'=>$quiz->id])}}" method="POST">
+                @csrf
+                <input type="hidden" name="quiz_id" value="{{ $quiz->id }}">
+                <input type="hidden" name="question" value="{{ $quiz->question}}">
+                <input type="hidden" name="correct_answer" value="{{ $choice->choice}}">
+                <button type="submit" onclick="return confirm('マイ単語帳に登録しますか？')">📙</button>
+                </form>
+                </td>
     </tr>
             @endforeach
+            <!-- 登録成功メッセージとエラーメッセージ -->
+@if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+            @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
   
         </table>
-        <a href="{{ route('user-menu',['category_id'=>$category->id ,'title_id'=>$title->id])}}"><button>戻る</button></a>
+        <a href="{{ route('paid-user-menu',['category_id'=>$category->id ,'title_id'=>$title->id])}}"><button>戻る</button></a>
     </div>
 </main>
 

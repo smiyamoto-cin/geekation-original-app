@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
 <!doctype html>
 <html lang="ja">
   <head>
@@ -49,43 +48,16 @@
   </head>
   <body>
   <div class="container">
+  <h3><{{ $title->title }}></h3>
+    <h3>お疲れ様でした</h3>
+    <h2>最終結果</h2>
+    <p>正解数: {{ $correctAnswersCount}} / {{ $totalQuestions }}</p>
 
-    <main>
-<!-- クリックしたクイズのタイトルと問題一覧を表示 -->
-    <div class="row justify-content-center">
-    @foreach ($categories as $category)
-        <h5 class ="text-center">{{ $category->name}}</h5>
-        @endforeach
-        @foreach ($titles as $title)
-        <h1 class ="text-center">{{ $title->title}}</h1>
-        @endforeach
-        <table class="table table-bordered table table-sm">
+    <a href="{{ route('paid-quiz-resultList', ['category_id'=>$category->id,'title_id'=>$title->id,'quiz_id'=>$quiz->id])}}">解答一覧へ</a>           
 
-            @foreach ($quizzes as $quiz) 
-            <tr>
-                <td nowrap>
-                    <p>{{ $quiz->question }}</p>			
-                </td>
-                    @php
-                    $quizChoices = $choices->where('quiz_id', $quiz->id)
-                    ->where('is_answer',1);
-                    @endphp
-                    @foreach ($quizChoices as $choice)
-                <td>{{ $choice->choice }}</td>
-                    @endforeach
-                </td>
-    </tr>
-            @endforeach
-  
-        </table>
-        <a href="{{ route('user-menu',['category_id'=>$category->id ,'title_id'=>$title->id])}}"><button>戻る</button></a>
+                
+
+
     </div>
-</main>
-
-    <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-      
-  </body>
-</html>
-
+</body>
 @endsection

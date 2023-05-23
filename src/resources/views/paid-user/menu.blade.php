@@ -84,7 +84,7 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                 
-                                <a href="{{ route('user-list',['category_id'=>$category->id ,'title_id'=>$title->id])}}"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
+                                <a href="{{ route('paid-user-list',['category_id'=>$category->id ,'title_id'=>$title->id])}}"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
                                 
                                 </div>
                                 <small class="text-muted">9 mins</small>
@@ -101,14 +101,14 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                 
-                                <a href="{{ route('quiz.show', ['category_id'=>$category->id,'title_id'=>$title->id])}}"><button type="button" class="btn btn-sm btn-outline-secondary">Start</button></a>
+                                <a href="{{ route('paid-quiz-show', ['category_id'=>$category->id,'title_id'=>$title->id])}}"><button type="button" class="btn btn-sm btn-outline-secondary">Start</button></a>
                                 
                                 </div>
                                 <small class="text-muted">9 mins</small>
                             </div>
                             </div>
                     </div>
-                    <a href="{{ route('user-mypage')}}"><button>戻る</button></a>
+                    <a href="{{ route('paid-user-mypage')}}"><button>戻る</button></a>
             </main>
     </div>
 </body>

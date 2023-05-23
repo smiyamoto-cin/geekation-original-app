@@ -51,49 +51,47 @@
   <div class="container">
 
     <main>
-    <!-- クリックしたクイズのタイトルと問題一覧を表示 -->
-        <div class="row justify-content-center">
-        @foreach ($categories as $category)
-            <h3>{{ $category->name}}</h3>
-            @endforeach
-            @foreach ($titles as $title)
-            <h1>{{ $title->title}}</h1>
-            @endforeach
-            <table class="table table-bordered table table-sm">
+<!-- クリックしたクイズのタイトルと問題一覧を表示 -->
+    <div class="row justify-content-center">
+<h1>お気に入りの単語リスト</h1>
+        <table class="table table-bordered table table-sm">
 
-                @foreach ($quizzes as $quiz) 
-                <tr>
-                    <td nowrap>
-                        <p>{{ $quiz->question }}</p>			
-                    </td>
-                        @php
-                        $quizChoices = $choices->where('quiz_id', $quiz->id);
-                        @endphp
-                        @foreach ($quizChoices as $choice)
-                    <td>{{ $choice->choice }}</td>
-                        @endforeach
-                    </td>
-            <td nowrap><a href="{{ route('admin-list-edit', ['category_id'=>$category->id ,'title_id'=>$title->id,'quiz_id'=>$quiz->id]) }}"><button>編集</button></a></td>
-            <td nowrap>
-                <form action="{{ route('admin-list-delete',['id'=>$quiz->id]) }}" method="POST">
+            @foreach ($favoritewords as $favoriteword) 
+            <tr>
+                <td nowrap>
+                    <p>{{ $favoriteword->favorite_word }}</p>			
+                </td>
+                   
+                   
+                <td>{{ $favoriteword->correct_answer }}</td>
+                    
+                </td>
+                <td nowrap>
+                <form action="{{route('favorite-words-delete',['id'=>$favoriteword->id])}}" method="POST">
                 @csrf
-                <button type="submit" onclick="return confirm('本当に削除しますか？')">削除</button>
+                <button type="submit" onclick="return confirm('単語帳から削除されますがよろしいですか？')">削除</button>
                 </form>
-            </td>
-        </tr>
-                @endforeach
-    
-            </table>
-            <a href="{{ route('admin-list-add',['category_id'=>$category->id ,'title_id'=>$title->id])}}"><button>問題を追加</button></a>
-            <a href="{{ route('admin-mypage-titles')}}"><button>戻る</button></a>
-        </div>
-
+                </td>
+                
+    </tr>
+            @endforeach
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
             
-    </main>
+
+        </table>
+        <a href="{{ route('paid-user-mypage')}}"><button>戻る</button></a>
+       
+    </div>
+</main>
 
     <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+      
   </body>
-</div>
 </html>
 
 @endsection
