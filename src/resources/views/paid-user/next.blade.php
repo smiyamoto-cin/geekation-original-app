@@ -47,7 +47,7 @@
         <h1>{{ $nextQuiz->question }}</h1>
 
         <!-- 選択肢の表示 -->
-        <form action="{{ route('quiz.submit') }}" method="post">
+        <form action="{{ route('paid-quiz-submit') }}" method="post">
             @csrf
             <input type="hidden" name="next_quiz_id" value="{{ $nextQuiz->id }}">
             <input type="hidden" name="title_id" value="{{ $title->id }}">

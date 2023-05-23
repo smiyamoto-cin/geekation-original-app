@@ -11,6 +11,6 @@
 
     
 
-    <a href="{{ route('quiz.next', ['category_id' => $category->id, 'title_id' => $title->id, 'quiz_id' => $quiz->id]) }}">次の問題へ</a>
+    <a href="{{ route('paid-quiz-next', ['category_id' => $category->id, 'title_id' => $title->id, 'quiz_id' => $quiz->id]) }}">次の問題へ</a>
 </div>
 @endsection

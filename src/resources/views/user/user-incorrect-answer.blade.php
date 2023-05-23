@@ -86,7 +86,7 @@
                 </div>
             @endif
         </table>
-        <input value="戻る" onclick="history.back();" type="button">
+        <a href="{{ route('user-mypage')}}"><button>戻る</button></a>
        
     </div>
 </main>

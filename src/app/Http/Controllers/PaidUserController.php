@@ -190,7 +190,7 @@ class PaidUserController extends Controller
            $choices = Choice::where('quiz_id', $nextQuiz->id)->get();
            return view('paid-user.next', compact('category', 'title', 'nextQuiz', 'choices'));
        } else {
-           return redirect()->route('quiz.finalResult', [
+           return redirect()->route('paid-quiz-finalResult', [
                'category_id' => $category_id,
                'title_id' => $title_id,
                'quiz_id' => $quiz_id,

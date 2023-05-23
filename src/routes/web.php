@@ -128,14 +128,14 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
         *クイズ表示、回答、次の問題
         */
         //クイズ一問目表示
-        Route::get('/mypage/quiz/{category_id}/{title_id}', [PaidUserController::class, 'showQuiz'])->name('quiz.show');
+        Route::get('/mypage/quiz/{category_id}/{title_id}', [PaidUserController::class, 'showQuiz'])->name('paid-quiz-show');
         //クイズの回答をanswer_historiesに登録
-        Route::post('/mypage/quiz/', [PaidUserController::class, 'submitAnswer'])->name('quiz.submit');
-        Route::get('/mypage/quiz/{category_id}/{title_id}/{quiz_id}', [PaidUserController::class, 'nextQuiz'])->name('quiz.next');
+        Route::post('/mypage/quiz/', [PaidUserController::class, 'submitAnswer'])->name('paid-quiz-submit');
+        Route::get('/mypage/quiz/{category_id}/{title_id}/{quiz_id}', [PaidUserController::class, 'nextQuiz'])->name('paid-quiz-next');
         //結果画面
-        Route::get('/mypage/quiz/result/{category_id}/{title_id}/{quiz_id}', [PaidUserController::class, 'finalResult'])->name('quiz.finalResult');
+        Route::get('/mypage/quiz/result/{category_id}/{title_id}/{quiz_id}', [PaidUserController::class, 'finalResult'])->name('paid-quiz-finalResult');
         //正誤一覧画面
-        Route::get('/mypage/quiz/result-list/{category_id}/{title_id}/{quiz_id}', [PaidUserController::class, 'UserResultList'])->name('quiz.resultList'); 
+        Route::get('/mypage/quiz/result-list/{category_id}/{title_id}/{quiz_id}', [PaidUserController::class, 'UserResultList'])->name('paid-quiz-resultList'); 
         //お気に入り登録処理
         Route::post('/mypage/quiz/fav/{id}', [PaidUserController::class, 'favoriteWords'])->name('favorite-words');
         //お気に入り画面

@@ -53,7 +53,7 @@
     <h2>最終結果</h2>
     <p>正解数: {{ $correctAnswersCount}} / {{ $totalQuestions }}</p>
 
-    <a href="{{ route('quiz.resultList', ['category_id'=>$category->id,'title_id'=>$title->id,'quiz_id'=>$quiz->id])}}">解答一覧へ</a>           
+    <a href="{{ route('paid-quiz-resultList', ['category_id'=>$category->id,'title_id'=>$title->id,'quiz_id'=>$quiz->id])}}">解答一覧へ</a>           
 
                 
 

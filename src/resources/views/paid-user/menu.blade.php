@@ -101,7 +101,7 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                 
-                                <a href="{{ route('quiz.show', ['category_id'=>$category->id,'title_id'=>$title->id])}}"><button type="button" class="btn btn-sm btn-outline-secondary">Start</button></a>
+                                <a href="{{ route('paid-quiz-show', ['category_id'=>$category->id,'title_id'=>$title->id])}}"><button type="button" class="btn btn-sm btn-outline-secondary">Start</button></a>
                                 
                                 </div>
                                 <small class="text-muted">9 mins</small>

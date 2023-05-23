@@ -14,8 +14,7 @@ class quiz extends Model
 
    // テーブルに関連づける主キー
    protected $primaryKey = 'id';
-   public $incrementing = false;
-
+  
    // 登録・編集ができるカラム
     protected $fillable = [
         'id',

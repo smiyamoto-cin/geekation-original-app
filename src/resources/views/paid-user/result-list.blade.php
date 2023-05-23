@@ -62,10 +62,11 @@
 
     <table class="table table-bordered table table-sm">
     <tr>
-        <td></td>
+       
         <td>問題</td>
         <td>正しい解答</td>
         <td>あなたの解答</td>
+        <td></td>
         <td></td>
         
     </tr>
@@ -73,30 +74,7 @@
     @foreach ($quizzes as $quiz)
     
         <tr>
-            <td nowrap>
-                @php
-                $quizChoices = $choices->where('quiz_id', $quiz->id)
-                                        ->where('is_answer', 1);
-                                        
-                $quizAnswerHistories = $answerHistories->where('quiz_id', $quiz->id);
-                @endphp
-                
-                @if ($quizChoices->count() > 0 && $quizAnswerHistories->count() > 0)
-                    @foreach ($quizAnswerHistories as $answerHistory)
-                        @php
-                        $choice = \App\Models\Choice::find($answerHistory->user_answer);
-                        @endphp
-                        
-                        @if ($quizChoices->contains('id', $answerHistory->user_answer))
-                            <p>✅</p>
-                        @else
-                            <p>❌</p>
-                        @endif
-                    @endforeach
-                @else
-                    <p>❌</p>
-                @endif
-                </td>
+            
             <td nowrap>
                 <p>{{ $quiz->question }}</p>
             </td>
@@ -125,6 +103,30 @@
                 @endif
             @endforeach
             </td>
+            <td nowrap>
+                @php
+                $quizChoices = $choices->where('quiz_id', $quiz->id)
+                                        ->where('is_answer', 1);
+                                        
+                $quizAnswerHistories = $answerHistories->where('quiz_id', $quiz->id);
+                @endphp
+                
+                @if ($quizChoices->count() > 0 && $quizAnswerHistories->count() > 0)
+                    @foreach ($quizAnswerHistories as $answerHistory)
+                        @php
+                        $choice = \App\Models\Choice::find($answerHistory->user_answer);
+                        @endphp
+                        
+                        @if ($quizChoices->contains('id', $answerHistory->user_answer))
+                            <p>✅</p>
+                        @else
+                            <p>❌</p>
+                        @endif
+                    @endforeach
+                @else
+                    <p>❌</p>
+                @endif
+                </td>
                 <td>
              <form action="{{route ('favorite-words',['id'=>$quiz->id])}}" method="POST">
                 @csrf
@@ -152,10 +154,10 @@
             @endif
 </table>
 
-        <a href ="{{ route('quiz.show',['category_id'=>$category->id,'title_id'=>$title->id])}}">
+        <a href ="{{ route('paid-quiz-show',['category_id'=>$category->id,'title_id'=>$title->id])}}">
                     <button>try again</button>
                 </a>
-                <a href ="{{ route('user-mypage')}}">
+                <a href ="{{ route('paid-user-mypage')}}">
                     <button>mypage</button>
                 </a>
     </div>
