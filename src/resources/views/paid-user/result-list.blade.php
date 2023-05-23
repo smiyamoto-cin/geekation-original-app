@@ -62,15 +62,41 @@
 
     <table class="table table-bordered table table-sm">
     <tr>
+        <td></td>
         <td>問題</td>
         <td>正しい解答</td>
         <td>あなたの解答</td>
         <td></td>
+        
     </tr>
 
     @foreach ($quizzes as $quiz)
     
         <tr>
+            <td nowrap>
+                @php
+                $quizChoices = $choices->where('quiz_id', $quiz->id)
+                                        ->where('is_answer', 1);
+                                        
+                $quizAnswerHistories = $answerHistories->where('quiz_id', $quiz->id);
+                @endphp
+                
+                @if ($quizChoices->count() > 0 && $quizAnswerHistories->count() > 0)
+                    @foreach ($quizAnswerHistories as $answerHistory)
+                        @php
+                        $choice = \App\Models\Choice::find($answerHistory->user_answer);
+                        @endphp
+                        
+                        @if ($quizChoices->contains('id', $answerHistory->user_answer))
+                            <p>✅</p>
+                        @else
+                            <p>❌</p>
+                        @endif
+                    @endforeach
+                @else
+                    <p>❌</p>
+                @endif
+                </td>
             <td nowrap>
                 <p>{{ $quiz->question }}</p>
             </td>
@@ -98,34 +124,32 @@
                     <p>{{ $choice->choice }}</p>
                 @endif
             @endforeach
-             </td>
-             <td nowrap>
-    @php
-    $quizChoices = $choices->where('quiz_id', $quiz->id)
-                            ->where('is_answer', 1);
-                            
-    $quizAnswerHistories = $answerHistories->where('quiz_id', $quiz->id);
-    @endphp
-    
-    @if ($quizChoices->count() > 0 && $quizAnswerHistories->count() > 0)
-        @foreach ($quizAnswerHistories as $answerHistory)
-            @php
-            $choice = \App\Models\Choice::find($answerHistory->user_answer);
-            @endphp
-            
-            @if ($quizChoices->contains('id', $answerHistory->user_answer))
-                <p>✅</p>
-            @else
-                <p>❌</p>
-            @endif
-        @endforeach
-    @else
-        <p>❌</p>
-    @endif
-</td>
+            </td>
+                <td>
+             <form action="{{route ('favorite-words',['id'=>$quiz->id])}}" method="POST">
+                @csrf
+                <input type="hidden" name="quiz_id" value="{{ $quiz->id }}">
+                <input type="hidden" name="question" value="{{ $quiz->question}}">
+                <input type="hidden" name="correct_answer" value="{{ $choice->choice}}">
+                <button type="submit" onclick="return confirm('マイ単語帳に登録しますか？')">📙</button>
+                </form>
+                </td>
+             
+             
         </tr>
         
     @endforeach
+    <!-- 登録成功メッセージとエラーメッセージ -->
+@if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+            @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
 </table>
 
         <a href ="{{ route('quiz.show',['category_id'=>$category->id,'title_id'=>$title->id])}}">

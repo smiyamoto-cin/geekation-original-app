@@ -53,32 +53,41 @@
     <main>
 <!-- クリックしたクイズのタイトルと問題一覧を表示 -->
     <div class="row justify-content-center">
-    @foreach ($categories as $category)
-        <h5 class ="text-center">{{ $category->name}}</h5>
-        @endforeach
-        @foreach ($titles as $title)
-        <h1 class ="text-center">{{ $title->title}}</h1>
-        @endforeach
+<h1>不正解の単語リスト</h1>
         <table class="table table-bordered table table-sm">
 
-            @foreach ($quizzes as $quiz) 
+            @foreach ($incorrectAnswers as $incorrectAnswer) 
             <tr>
                 <td nowrap>
-                    <p>{{ $quiz->question }}</p>			
+                    <p>{{ $incorrectAnswer->question }}</p>			
                 </td>
-                    @php
-                    $quizChoices = $choices->where('quiz_id', $quiz->id)
-                    ->where('is_answer',1);
-                    @endphp
-                    @foreach ($quizChoices as $choice)
-                <td>{{ $choice->choice }}</td>
-                    @endforeach
+                   
+                   
+                <td>{{ $incorrectAnswer->correct_answer }}</td>
+                    
                 </td>
-    </tr>
+                <td nowrap>
+                <form action="{{ route('incorrect-answer-delete',['id'=>$incorrectAnswer->id]) }}" method="POST">
+                @csrf
+                <button type="submit" onclick="return confirm('単語帳から削除されますがよろしいですか？')">✅</button>
+                </form>
+                </td>
+                
             @endforeach
-  
+            <!-- 登録成功メッセージとエラーメッセージ -->
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+            @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
         </table>
-        <a href="{{ route('user-menu',['category_id'=>$category->id ,'title_id'=>$title->id])}}"><button>戻る</button></a>
+        <input value="戻る" onclick="history.back();" type="button">
+       
     </div>
 </main>
 

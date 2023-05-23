@@ -2,7 +2,6 @@
 
 @section('content')
 
-
 <!doctype html>
 <html lang="ja">
   <head>
@@ -54,91 +53,56 @@
     <main>
 <!-- クリックしたクイズのタイトルと問題一覧を表示 -->
     <div class="row justify-content-center">
-   
+    @foreach ($categories as $category)
+        <h5 class ="text-center">{{ $category->name}}</h5>
+        @endforeach
         @foreach ($titles as $title)
         <h1 class ="text-center">{{ $title->title}}</h1>
         @endforeach
+        <table class="table table-bordered table table-sm">
 
-
-    <table class="table table-bordered table table-sm">
-    <tr>
-        <td>問題</td>
-        <td>正しい解答</td>
-        <td>あなたの解答</td>
-        <td></td>
+            @foreach ($quizzes as $quiz) 
+            <tr>
+                <td nowrap>
+                    <p>{{ $quiz->question }}</p>			
+                </td>
+                    @php
+                    $quizChoices = $choices->where('quiz_id', $quiz->id)
+                    ->where('is_answer',1);
+                    @endphp
+                    @foreach ($quizChoices as $choice)
+                <td>{{ $choice->choice }}</td>
+                    @endforeach
+                </td>
+                <td nowrap>
+                <form action="{{route ('favorite-words',['id'=>$quiz->id])}}" method="POST">
+                @csrf
+                <input type="hidden" name="quiz_id" value="{{ $quiz->id }}">
+                <input type="hidden" name="question" value="{{ $quiz->question}}">
+                <input type="hidden" name="correct_answer" value="{{ $choice->choice}}">
+                <button type="submit" onclick="return confirm('マイ単語帳に登録しますか？')">📙</button>
+                </form>
+                </td>
     </tr>
-
-    @foreach ($quizzes as $quiz)
-    
-        <tr>
-            <td nowrap>
-                <p>{{ $quiz->question }}</p>
-            </td>
-            <td>
-                @php
-                $quizChoices = $choices->where('quiz_id', $quiz->id)
-                ->where('is_answer',1);
-                
-                @endphp
-                @foreach ($quizChoices as $choice)
-                    <p>{{ $choice->choice }}</p>
-                @endforeach
-                
-            </td>
-            <td>
-                @php
-                $quizAnswerHistories = $answerHistories->where('quiz_id', $quiz->id);
-                @endphp
-                @foreach ($quizAnswerHistories as $answerHistory)
-                @php
-                    $choice = \App\Models\Choice::find($answerHistory->user_answer);
-                @endphp
-
-                @if ($choice)
-                    <p>{{ $choice->choice }}</p>
-                @endif
             @endforeach
-             </td>
-             <td nowrap>
-    @php
-    $quizChoices = $choices->where('quiz_id', $quiz->id)
-                            ->where('is_answer', 1);
-                            
-    $quizAnswerHistories = $answerHistories->where('quiz_id', $quiz->id);
-    @endphp
-    
-    @if ($quizChoices->count() > 0 && $quizAnswerHistories->count() > 0)
-        @foreach ($quizAnswerHistories as $answerHistory)
-            @php
-            $choice = \App\Models\Choice::find($answerHistory->user_answer);
-            @endphp
-            
-            @if ($quizChoices->contains('id', $answerHistory->user_answer))
-                <p>✅</p>
-            @else
-                <p>❌</p>
+            <!-- 登録成功メッセージとエラーメッセージ -->
+@if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
             @endif
-        @endforeach
-    @else
-        <p>❌</p>
-    @endif
-</td>
-        </tr>
-        
-    @endforeach
-</table>
-
-        <a href ="{{ route('quiz.show',['category_id'=>$category->id,'title_id'=>$title->id])}}">
-                    <button>try again</button>
-                </a>
-                <a href ="{{ route('user-mypage')}}">
-                    <button>mypage</button>
-                </a>
+            @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+  
+        </table>
+        <a href="{{ route('paid-user-menu',['category_id'=>$category->id ,'title_id'=>$title->id])}}"><button>戻る</button></a>
     </div>
 </main>
 
     <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
 
       
   </body>

@@ -6,8 +6,11 @@ use App\Http\Requests\QuizAnswerRequest;
 use App\Models\answer_history;
 use App\Models\category;
 use App\Models\choice;
+use App\Models\incorrect_answer;
 use App\Models\Quiz;
 use App\Models\title;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -30,6 +33,43 @@ class UserController extends Controller
         $titles2 = Title::where('category_id', 2)->get();
         $titles3 = Title::where('category_id', 3)->get();
         return view('user.user-mypage',compact('titles1','titles2','titles3'));
+    }
+    //有料プランに変更のメッセージ
+    public function PremiumPlanMessage()
+    {
+        $user = Auth::user();
+        return view('user.user-premium-plan',compact('user'));
+    }
+//有料プラン変更処理
+    public function PremiumPlanRegister(Request $request)
+    {
+        $user=User::find($request->user_id);
+        if ($user) {
+            $user->role = 3; // 有料プランのロールIDに応じて変更してください
+            $user->save();
+            return redirect()->route('paid-user-mypage')->with('success', '有料プランに変更されました。');
+        } else {
+            return redirect()->route('user-mypage')->with('error', 'ユーザーが見つかりませんでした。');
+        }
+    }
+     //不正解の単語一覧
+     public function incorrectAnswer()
+     { 
+        $user_id = auth()->user()->id;
+        $incorrectAnswers=incorrect_answer::where('user_id', $user_id)->get();
+       
+
+         return view('user.user-incorrect-answer',compact('incorrectAnswers'));
+     }
+    //不正解の単語一覧　削除処理
+    public function incorrectAnswerDelete($id)
+    {
+        // 関連する問題と選択肢の削除
+        incorrect_answer::where('id', $id)->delete();
+        
+
+        return redirect()->route('incorrect-answer')->with('success', '問題の削除に成功しました。');
+    
     }
 
     //メニューを表示
@@ -112,6 +152,45 @@ class UserController extends Controller
             $correctAnswersCount++;
         };
 
+        // 不正解の場合の処理
+    if (!$isCorrect) {
+        $user_id = auth()->user()->id;
+        $incorrectAnswer = new Incorrect_Answer();
+        $incorrectAnswer->user_id = auth()->user()->id;
+        $incorrectAnswer->quiz_id = $choice->quiz_id;
+        
+        // 正解の選択肢を取得
+        $correctChoice = Choice::where('quiz_id', $choice->quiz_id)
+            ->where('is_answer', 1)
+            ->first();
+        // 不正解の問題を取得
+        $incorrectQuestion = Quiz::where('id', $choice->quiz_id)
+        ->value('question');
+
+        // 不正解の問題のテキストを保存
+        if ($incorrectQuestion) {
+            $incorrectAnswer->question = $incorrectQuestion;
+        }
+        // 同一ユーザーの重複をチェックする
+        $existingIncorrectAnswer = Incorrect_Answer::where('user_id', $user_id)
+        ->where('quiz_id', $quiz_id)
+        ->where('correct_answer', $correctChoice->choice)
+        ->first();
+        // 正解の選択肢のテキストを保存
+        if ($correctChoice) {
+            $incorrectAnswer->correct_answer = $correctChoice->choice;
+        }
+        // 重複していない場合のみ保存する
+    if (!$existingIncorrectAnswer) {
+        $incorrectAnswer = new Incorrect_Answer();
+        $incorrectAnswer->user_id = auth()->user()->id;
+        $incorrectAnswer->quiz_id = $choice->quiz_id;
+        $incorrectAnswer->correct_answer = $correctChoice->choice;
+        $incorrectAnswer->question = $incorrectQuestion;
+        $incorrectAnswer->save();
+    }
+    }
+
         // 正誤判定の結果と正解数をセッションに保存
         // $request->session()->flash('result', $isCorrect);
         $request->session()->put('correct_answers_count', $correctAnswersCount);
@@ -166,6 +245,8 @@ class UserController extends Controller
     {
         $categories = Category::where('id', $category_id)->get();
         $titles = Title::where('id', $title_id)->get();
+        $category = Category::findOrFail($category_id);
+        $title = Title::findOrFail($title_id);
         $quizzes = Quiz::where('title_id', $title_id)->get();
         
         
@@ -181,12 +262,12 @@ class UserController extends Controller
             $answerHistories = Answer_History::whereIn('id', $latestIds)
             ->orderBy('id', 'desc')
             ->get();
-        
+
     
         // foreach($answerHistories as $answerHistory)
         // $userChoice = Choice::find($answerHistory->user_answer);
         
-        return view('user.user-result-list', compact('titles', 'quizzes','choices' ,'answerHistories'));
+        return view('user.user-result-list', compact('titles', 'quizzes','choices' ,'answerHistories','category','title'));
     }
 
 }

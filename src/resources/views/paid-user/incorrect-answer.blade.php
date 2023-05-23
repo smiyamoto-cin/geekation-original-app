@@ -53,32 +53,52 @@
     <main>
 <!-- クリックしたクイズのタイトルと問題一覧を表示 -->
     <div class="row justify-content-center">
-    @foreach ($categories as $category)
-        <h5 class ="text-center">{{ $category->name}}</h5>
-        @endforeach
-        @foreach ($titles as $title)
-        <h1 class ="text-center">{{ $title->title}}</h1>
-        @endforeach
+<h1>不正解の単語リスト</h1>
         <table class="table table-bordered table table-sm">
 
-            @foreach ($quizzes as $quiz) 
+            @foreach ($incorrectAnswers as $incorrectAnswer) 
             <tr>
                 <td nowrap>
-                    <p>{{ $quiz->question }}</p>			
+                    <p>{{ $incorrectAnswer->question }}</p>			
                 </td>
-                    @php
-                    $quizChoices = $choices->where('quiz_id', $quiz->id)
-                    ->where('is_answer',1);
-                    @endphp
-                    @foreach ($quizChoices as $choice)
-                <td>{{ $choice->choice }}</td>
-                    @endforeach
+                   
+                   
+                <td>{{ $incorrectAnswer->correct_answer }}</td>
+                    
+                </td>
+                <td nowrap>
+                <form action="{{ route('incorrect-answer-delete',['id'=>$incorrectAnswer->id]) }}" method="POST">
+                @csrf
+                <button type="submit" onclick="return confirm('単語帳から削除されますがよろしいですか？')">✅</button>
+                </form>
+                </td>
+                <td nowrap>
+                <form action="{{route ('favorite-words',['id'=>$incorrectAnswer->id])}}" method="POST">
+                @csrf
+                <input type="hidden" name="quiz_id" value="{{ $incorrectAnswer->quiz_id }}">
+                <input type="hidden" name="question" value="{{ $incorrectAnswer->question}}">
+                <input type="hidden" name="correct_answer" value="{{ $incorrectAnswer->correct_answer}}">
+                <button type="submit" onclick="return confirm('マイ単語帳に登録しますか？')">📙</button>
+                </form>
                 </td>
     </tr>
             @endforeach
-  
+            
+            <!-- 登録成功メッセージとエラーメッセージ -->
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+            @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+
         </table>
-        <a href="{{ route('user-menu',['category_id'=>$category->id ,'title_id'=>$title->id])}}"><button>戻る</button></a>
+        <a href="{{ route('paid-user-mypage')}}"><button>戻る</button></a>
+       
     </div>
 </main>
 

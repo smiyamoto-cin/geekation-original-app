@@ -53,32 +53,38 @@
     <main>
 <!-- クリックしたクイズのタイトルと問題一覧を表示 -->
     <div class="row justify-content-center">
-    @foreach ($categories as $category)
-        <h5 class ="text-center">{{ $category->name}}</h5>
-        @endforeach
-        @foreach ($titles as $title)
-        <h1 class ="text-center">{{ $title->title}}</h1>
-        @endforeach
+<h1>お気に入りの単語リスト</h1>
         <table class="table table-bordered table table-sm">
 
-            @foreach ($quizzes as $quiz) 
+            @foreach ($favoritewords as $favoriteword) 
             <tr>
                 <td nowrap>
-                    <p>{{ $quiz->question }}</p>			
+                    <p>{{ $favoriteword->favorite_word }}</p>			
                 </td>
-                    @php
-                    $quizChoices = $choices->where('quiz_id', $quiz->id)
-                    ->where('is_answer',1);
-                    @endphp
-                    @foreach ($quizChoices as $choice)
-                <td>{{ $choice->choice }}</td>
-                    @endforeach
+                   
+                   
+                <td>{{ $favoriteword->correct_answer }}</td>
+                    
                 </td>
+                <td nowrap>
+                <form action="{{route('favorite-words-delete',['id'=>$favoriteword->id])}}" method="POST">
+                @csrf
+                <button type="submit" onclick="return confirm('単語帳から削除されますがよろしいですか？')">削除</button>
+                </form>
+                </td>
+                
     </tr>
             @endforeach
-  
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+            
+
         </table>
-        <a href="{{ route('user-menu',['category_id'=>$category->id ,'title_id'=>$title->id])}}"><button>戻る</button></a>
+        <a href="{{ route('paid-user-mypage')}}"><button>戻る</button></a>
+       
     </div>
 </main>
 
