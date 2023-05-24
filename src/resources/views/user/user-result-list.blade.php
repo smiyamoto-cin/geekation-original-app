@@ -48,98 +48,106 @@
 
     
   </head>
-  <body>
+  <body style="background-color: #FDF5E6;">
   <div class="container">
 
     <main>
-<!-- クリックしたクイズのタイトルと問題一覧を表示 -->
-    <div class="row justify-content-center">
-   
-        @foreach ($titles as $title)
-        <h1 class ="text-center">{{ $title->title}}</h1>
-        @endforeach
-
-
-    <table class="table table-bordered table table-sm">
-    <tr>
-        <td>問題</td>
-        <td>正しい解答</td>
-        <td>あなたの解答</td>
-        <td></td>
-    </tr>
-
-    @foreach ($quizzes as $quiz)
-    
-        <tr>
-            <td nowrap>
-                <p>{{ $quiz->question }}</p>
-            </td>
-            <td>
-                @php
-                $quizChoices = $choices->where('quiz_id', $quiz->id)
-                ->where('is_answer',1);
-                
-                @endphp
-                @foreach ($quizChoices as $choice)
-                    <p>{{ $choice->choice }}</p>
-                @endforeach
-                
-            </td>
-            <td>
-                @php
-                $quizAnswerHistories = $answerHistories->where('quiz_id', $quiz->id);
-                @endphp
-                @foreach ($quizAnswerHistories as $answerHistory)
-                @php
-                    $choice = \App\Models\Choice::find($answerHistory->user_answer);
-                @endphp
-
-                @if ($choice)
-                    <p>{{ $choice->choice }}</p>
-                @endif
-            @endforeach
-             </td>
-             <td nowrap>
-    @php
-    $quizChoices = $choices->where('quiz_id', $quiz->id)
-                            ->where('is_answer', 1);
-                            
-    $quizAnswerHistories = $answerHistories->where('quiz_id', $quiz->id);
-    @endphp
-    
-    @if ($quizChoices->count() > 0 && $quizAnswerHistories->count() > 0)
-        @foreach ($quizAnswerHistories as $answerHistory)
-            @php
-            $choice = \App\Models\Choice::find($answerHistory->user_answer);
-            @endphp
-            
-            @if ($quizChoices->contains('id', $answerHistory->user_answer))
-                <p>✅</p>
-            @else
-                <p>❌</p>
-            @endif
-        @endforeach
-    @else
-        <p>❌</p>
-    @endif
-</td>
-        </tr>
+        <!-- クリックしたクイズのタイトルと問題一覧を表示 -->
+            <div class="row justify-content-center text-center">
         
-    @endforeach
-</table>
+                @foreach ($titles as $title)
+                <h3 class="fw-light my-4"><span style="color: #696969;">{{ $title->title}}</span></h3>
+                @endforeach
 
-        <a href ="{{ route('quiz.show',['category_id'=>$category->id,'title_id'=>$title->id])}}">
-                    <button>try again</button>
-                </a>
-                <a href ="{{ route('user-mypage')}}">
-                    <button>mypage</button>
-                </a>
-    </div>
-</main>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">問題</th>
+                        <th scope="col">正しい解答</th>
+                        <th scope="col">あなたの解答</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach ($quizzes as $quiz)
+                    <tr>
+                        <th scope="row">{{ $quiz->question }}</th>
+                        <td>
+                        @php
+                        $quizChoices = $choices->where('quiz_id', $quiz->id)
+                        ->where('is_answer',1);
+                        
+                        @endphp
+                        @foreach ($quizChoices as $choice)
+                            <p>{{ $choice->choice }}</p>
+                        @endforeach
+                    </td>
+                    <td>
+                        @php
+                        $quizAnswerHistories = $answerHistories->where('quiz_id', $quiz->id);
+                        @endphp
+                        @foreach ($quizAnswerHistories as $answerHistory)
+                            @php
+                                $choice = \App\Models\Choice::find($answerHistory->user_answer);
+                            @endphp
+                            @if ($choice)
+                                <p>{{ $choice->choice }}</p>
+                            @endif	
+                                @endforeach
+                    </td>
+                        <td>
+                        @php
+                        $quizChoices = $choices->where('quiz_id', $quiz->id)
+                                                ->where('is_answer', 1);
+                                $quizAnswerHistories = $answerHistories->where('quiz_id', $quiz->id);
+                                @endphp
+                                @if ($quizChoices->count() > 0 && $quizAnswerHistories->count() > 0)
+                                    @foreach ($quizAnswerHistories as $answerHistory)
+                                        @php
+                                        $choice = \App\Models\Choice::find($answerHistory->user_answer);
+                                        @endphp
+                                    @if ($quizChoices->contains('id', $answerHistory->user_answer))
+                                    <p><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" style="color:green;" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+                                    <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
+                                    <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+                                    </svg></p>
+                                @else
+                                    <p><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" style="color:red;">
+                                    <path fill-rule="evenodd" d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"/>
+                                    <path fill-rule="evenodd" d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z"/>
+                                    </svg></p>
+                                @endif
+                                    @endforeach
+                                @else
+                                    <p><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" style="color:red;">
+                                    <path fill-rule="evenodd" d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"/>
+                                    <path fill-rule="evenodd" d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z"/>
+                                    </svg></p>
+                                @endif
+                    </td>
+                    </tr>
+                    @endforeach
+
+                    </tbody>
+                </table>
+
+                <a href ="{{ route('quiz.show',['category_id'=>$category->id,'title_id'=>$title->id])}}">
+                            <button class="btn btn-success mb-2 btn-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+                            <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+                            </svg> もう一度
+                            </button>
+                        </a>
+                        <a href ="{{ route('user-mypage')}}">
+                        <button class="btn btn-outline-secondary btn-sm mt-2 mb-5">マイページに戻る</button>
+                        </a>
+            </div>
+    </main>
 
     <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-
+    </div>
       
   </body>
 </html>

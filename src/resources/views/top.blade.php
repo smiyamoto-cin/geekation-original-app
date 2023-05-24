@@ -21,13 +21,13 @@
     <body>
 
         <!-- Masthead-->
-        <header class="masthead">
+        <header class="masthead mb-3" style="background-image: url('assets/img/hello.jpg')">
             <div class="container position-relative">
                 <div class="row justify-content-center">
                     <div class="col-xl-6">
                         <div class="text-center text-white">
                             <!-- Page heading-->
-                            <h1 class="mb-5">登録して英単語クイズで遊ぼう！</h1>
+                            <h2 class="mb-5">英単語学習用クイズアプリ</h2>
                             <!-- Register form-->
                             <!-- * * * * * * * * * * * * * * *-->
                             <!-- * * SB Forms Contact Form * *-->
@@ -38,10 +38,10 @@
                             <!-- to get an API token!-->
                             @if (Route::has('register'))
                                 <div class="nav-item">
-                                <button type="button" class="btn btn-primary">
+                                <button type="button" class="btn btn-success">
                                 @if (Route::has('register'))
-                                <div class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                <div class="nav-item" >
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('無料会員登録') }}</a>
                                 </div>
                             @endif
                                 </button>
@@ -54,42 +54,45 @@
         </header>
 
         <!-- Image Showcases-->
+    <div class="container mb-3">
         <section class="showcase">
             <div class="container-fluid p-0">
                 <div class="row g-0">
-                    <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('assets/img/hello.jpg')"></div>
+                    <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('assets/img/apple5.png')"></div>
                     <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-                        <h2>ここにクイズ画面のイメージ→</h2>
-                        <p class="lead mb-0">ここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入ります</p>
+                        <h2><span style="color: #696969;">クイズ形式で楽しく英単語を覚えよう！</span>
+                        </h2>
+                     
+                        <p class="lead mb-0"><span style="color: #696969;">最後に正解数が出るので、満点目指して頑張りましょう！間違えた単語は単語帳に自動的に保存されて便利です。</span></p>
                     </div>
                 </div>
                 <div class="row g-0">
-                    <div class="col-lg-6 text-white showcase-img" style="background-image: url('assets/img/english.jpg')"></div>
+                    <div class="col-lg-6 text-white showcase-img" style="background-image: url('assets/img/mypage3.png')"></div>
                     <div class="col-lg-6 my-auto showcase-text">
-                        <h2>←ここにマイページのイメージ</h2>
-                        <p class="lead mb-0">ここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入ります</p>
+                        <h2><span style="color: #696969;">便利なマイページ</span></h2>
+                        <p class="lead mb-0"><span style="color: #696969;">初級問題は全て無料で遊べます！有料会員になれば全てのカテゴリーと単語帳機能が利用できます。</span></p>
                     </div>
                 </div>
                 <div class="row g-0">
-                    <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('assets/img/hello.jpg')"></div>
+                    <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('assets/img/fav3.png')"></div>
                     <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-                        <h2>ここに単語帳のイメージ→</h2>
-                        <p class="lead mb-0">ここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入りますここに説明が入ります</p>
+                        <h2><span style="color: #696969;">オリジナルの単語帳が作れます！</span></h2>
+                        <p class="lead mb-0"><span style="color: #696969;">有料プランでは、英単語のお気に入り機能がありオリジナルの英単語帳を簡単に作ることができます。</span></p>
                     </div>
                 </div>
             </div>
         </section>
-        
+</div>   
         <!-- Call to Action-->
-        <section class="call-to-action text-white text-center" id="register">
+        <section class="text-white text-center" id="register" style="background-color: #696969;">
             <div class="container position-relative">
                 <div class="row justify-content-center">
                     <div class="col-xl-6">
-                        <h2 class="mb-4">今すぐ始めよう！</h2>
-                        <button type="button" class="btn btn-primary">
+                        <h2 class="my-5">今すぐ始めよう！</h2>
+                        <button type="button" class="btn btn-success mb-5">
                         @if (Route::has('register'))
                                 <div class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('無料会員登録') }}</a>
                                 </div>
                             @endif
                             </button>
@@ -114,38 +117,7 @@
                 </div>
             </div>
         </section>
-        <!-- Footer-->
-        <footer class="footer bg-light">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
-                        <ul class="list-inline mb-2">
-                            <li class="list-inline-item"><a href="#!">About</a></li>
-                            <li class="list-inline-item">⋅</li>
-                            <li class="list-inline-item"><a href="#!">Contact</a></li>
-                            <li class="list-inline-item">⋅</li>
-                            <li class="list-inline-item"><a href="#!">Terms of Use</a></li>
-                            <li class="list-inline-item">⋅</li>
-                            <li class="list-inline-item"><a href="#!">Privacy Policy</a></li>
-                        </ul>
-                        <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2023. All Rights Reserved.</p>
-                    </div>
-                    <div class="col-lg-6 h-100 text-center text-lg-end my-auto">
-                        <ul class="list-inline mb-0">
-                            <li class="list-inline-item me-4">
-                                <a href="#!"><i class="bi-facebook fs-3"></i></a>
-                            </li>
-                            <li class="list-inline-item me-4">
-                                <a href="#!"><i class="bi-twitter fs-3"></i></a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#!"><i class="bi-instagram fs-3"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </footer>
+
         <!-- Bootstrap core JS-->
         <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script> -->
         <!-- Core theme JS-->

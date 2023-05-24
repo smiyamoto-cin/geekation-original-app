@@ -47,65 +47,82 @@
 
     
   </head>
-  <body>
+  <body style="background-color: #FDF5E6;">
   <div class="container">
 
     <main>
 <!-- クリックしたクイズのタイトルと問題一覧を表示 -->
-    <div class="row justify-content-center">
+    <div class="row justify-content-center text-center my-3">
+        <!-- 登録成功メッセージとエラーメッセージ -->
+        @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
     @foreach ($categories as $category)
-        <h5 class ="text-center">{{ $category->name}}</h5>
+    <h4 class="fw-light"><span style="color: #696969;">{{ $category->name}}</span></h4>
         @endforeach
         @foreach ($titles as $title)
-        <h1 class ="text-center">{{ $title->title}}</h1>
+        <h3 class="fw-light"><span style="color: #696969;">{{ $title->title}}</span></h3>
         @endforeach
-        <table class="table table-bordered table table-sm">
 
+        <div class="row justify-content-center text-center my-1">
+        <table class="table table-hover ">
+            <thead>
+                <tr>
+                <th scope="col">英単語</th>
+                <th scope="col">意味</th>
+                <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
             @foreach ($quizzes as $quiz) 
-            <tr>
-                <td nowrap>
-                    <p>{{ $quiz->question }}</p>			
-                </td>
-                    @php
+                <tr>
+                <th scope="row">{{ $quiz->question }}</th>
+                @php
                     $quizChoices = $choices->where('quiz_id', $quiz->id)
                     ->where('is_answer',1);
                     @endphp
                     @foreach ($quizChoices as $choice)
                 <td>{{ $choice->choice }}</td>
-                    @endforeach
-                </td>
-                <td nowrap>
-                <form action="{{route ('favorite-words',['id'=>$quiz->id])}}" method="POST">
-                @csrf
-                <input type="hidden" name="quiz_id" value="{{ $quiz->id }}">
-                <input type="hidden" name="question" value="{{ $quiz->question}}">
-                <input type="hidden" name="correct_answer" value="{{ $choice->choice}}">
-                <button type="submit" onclick="return confirm('マイ単語帳に登録しますか？')">📙</button>
-                </form>
-                </td>
-    </tr>
-            @endforeach
-            <!-- 登録成功メッセージとエラーメッセージ -->
-@if(session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
-            @if(session('error'))
-                <div class="alert alert-danger">
-                    {{ session('error') }}
-                </div>
-            @endif
-  
+                @endforeach
+
+                <td>
+                        <form action="{{route ('favorite-words',['id'=>$quiz->id])}}" method="POST">
+                    @csrf
+                    <input type="hidden" name="quiz_id" value="{{ $quiz->id }}">
+                    <input type="hidden" name="question" value="{{ $quiz->question}}">
+                    <input type="hidden" name="correct_answer" value="{{ $choice->choice}}">
+                    <button type="submit" style="color:green;border: none; background: transparent;" onclick="return confirm('マイ単語帳に登録しますか？')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bookmark-star-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zM8.16 4.1a.178.178 0 0 0-.32 0l-.634 1.285a.178.178 0 0 1-.134.098l-1.42.206a.178.178 0 0 0-.098.303L6.58 6.993c.042.041.061.1.051.158L6.39 8.565a.178.178 0 0 0 .258.187l1.27-.668a.178.178 0 0 1 .165 0l1.27.668a.178.178 0 0 0 .257-.187L9.368 7.15a.178.178 0 0 1 .05-.158l1.028-1.001a.178.178 0 0 0-.098-.303l-1.42-.206a.178.178 0 0 1-.134-.098L8.16 4.1z"/>
+                    </svg>
+                    </button>
+                    </form>
+                        </td>
+                </tr>
+                @endforeach
+                
+            </tbody>
         </table>
-        <a href="{{ route('paid-user-menu',['category_id'=>$category->id ,'title_id'=>$title->id])}}"><button>戻る</button></a>
+        
+    <a href="{{ route('paid-user-menu',['category_id'=>$category->id ,'title_id'=>$title->id])}}"><button class="btn btn-outline-secondary mt-5">戻る</button></a>
+    
+    
+ 
     </div>
 </main>
 
     <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
       
-  </body>
+  </body>   
 </html>
 
 @endsection

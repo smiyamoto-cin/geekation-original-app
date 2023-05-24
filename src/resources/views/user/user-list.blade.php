@@ -47,38 +47,61 @@
 
     
   </head>
-  <body>
+  <body style="background-color: #FDF5E6;">
   <div class="container">
 
     <main>
 <!-- クリックしたクイズのタイトルと問題一覧を表示 -->
-    <div class="row justify-content-center">
+    <div class="row justify-content-center text-center my-3">
     @foreach ($categories as $category)
-        <h5 class ="text-center">{{ $category->name}}</h5>
+    <h4 class="fw-light"><span style="color: #696969;">{{ $category->name}}</span></h4>
         @endforeach
         @foreach ($titles as $title)
-        <h1 class ="text-center">{{ $title->title}}</h1>
+        <h3 class="fw-light"><span style="color: #696969;">{{ $title->title}}</span></h3>
         @endforeach
-        <table class="table table-bordered table table-sm">
 
-            @foreach ($quizzes as $quiz) 
-            <tr>
-                <td nowrap>
-                    <p>{{ $quiz->question }}</p>			
-                </td>
-                    @php
-                    $quizChoices = $choices->where('quiz_id', $quiz->id)
-                    ->where('is_answer',1);
-                    @endphp
-                    @foreach ($quizChoices as $choice)
-                <td>{{ $choice->choice }}</td>
-                    @endforeach
-                </td>
+        <div class="row justify-content-center text-center my-1">
+        <table class="table table-hover ">
+  <thead>
+    <tr>
+      <th scope="col">英単語</th>
+      <th scope="col">意味</th>
+      <th scope="col"></th>
     </tr>
-            @endforeach
-  
-        </table>
-        <a href="{{ route('user-menu',['category_id'=>$category->id ,'title_id'=>$title->id])}}"><button>戻る</button></a>
+  </thead>
+  <tbody>
+  @foreach ($quizzes as $quiz) 
+    <tr>
+    <th scope="row">{{ $quiz->question }}</th>
+      @php
+        $quizChoices = $choices->where('quiz_id', $quiz->id)
+        ->where('is_answer',1);
+        @endphp
+        @foreach ($quizChoices as $choice)
+      <td>{{ $choice->choice }}</td>
+      @endforeach
+
+      <td></td>
+    </tr>
+    @endforeach
+    
+  </tbody>
+</table>
+        
+<a href="{{ route('user-menu',['category_id'=>$category->id ,'title_id'=>$title->id])}}"><button class="btn btn-outline-secondary mt-5">戻る</button></a>
+        <!-- 登録成功メッセージとエラーメッセージ -->
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+    
+ 
     </div>
 </main>
 

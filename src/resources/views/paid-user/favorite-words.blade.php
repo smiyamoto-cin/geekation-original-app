@@ -47,50 +47,58 @@
 
     
   </head>
-  <body>
+
+  <body style="background-color: #FDF5E6;">
   <div class="container">
 
     <main>
 <!-- クリックしたクイズのタイトルと問題一覧を表示 -->
-    <div class="row justify-content-center">
-<h1>お気に入りの単語リスト</h1>
-        <table class="table table-bordered table table-sm">
+    <div class="row justify-content-center text-center my-5">
+    <h4><span style="color: #696969;">お気に入りの単語リスト</span></h4>
 
-            @foreach ($favoritewords as $favoriteword) 
-            <tr>
-                <td nowrap>
-                    <p>{{ $favoriteword->favorite_word }}</p>			
-                </td>
-                   
-                   
-                <td>{{ $favoriteword->correct_answer }}</td>
-                    
-                </td>
-                <td nowrap>
-                <form action="{{route('favorite-words-delete',['id'=>$favoriteword->id])}}" method="POST">
-                @csrf
-                <button type="submit" onclick="return confirm('単語帳から削除されますがよろしいですか？')">削除</button>
-                </form>
-                </td>
-                
+    <div class="row justify-content-center text-center my-1">
+             <!-- 登録成功メッセージとエラーメッセージ -->
+      @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+        <table class="table table-hover ">
+  <thead>
+    <tr>
+      <th scope="col">英単語</th>
+      <th scope="col">意味</th>
+      <th scope="col"></th>
     </tr>
-            @endforeach
-            @if(session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
-            
-
-        </table>
-        <a href="{{ route('paid-user-mypage')}}"><button>戻る</button></a>
+  </thead>
+  <tbody>
+  @foreach ($favoritewords as $favoriteword) 
+    <tr>
+      <th scope="row">{{ $favoriteword->favorite_word }}</th>
+      <td>{{ $favoriteword->correct_answer }}</td>
+     
+      <td>
+        <form action="{{route('favorite-words-delete',['id'=>$favoriteword->id])}}" method="POST">
+                @csrf
+                <button type="submit" onclick="return confirm('単語帳から削除されますがよろしいですか？')" class="btn btn-outline-secondary">削除</button>
+                </form>
+    </td>
+    </tr>
+    @endforeach
+  </tbody>
+</table>
+        <a href="{{ route('paid-user-mypage')}}"><button button class="btn btn-outline-secondary mt-5">戻る</button></a>
        
     </div>
 </main>
 
     <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-      
   </body>
 </html>
 
