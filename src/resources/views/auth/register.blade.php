@@ -1,9 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+<body style="background-color: #FDF5E6;">
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-8 mt-5">
             <div class="card">
                 <div class="card-header">{{ __('会員登録') }}</div>
 
@@ -64,7 +65,7 @@
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-success">
                                     {{ __('登録する') }}
                                 </button>
                             </div>
@@ -75,4 +76,5 @@
         </div>
     </div>
 </div>
+</body>
 @endsection

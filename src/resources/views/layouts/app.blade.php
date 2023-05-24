@@ -16,12 +16,15 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
+        <!-- Bootstrap core CSS -->
+<link href=https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('/css/style.css')  }}" >
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md" style="background-color: #696969; color: #66CDAA;">
+        <nav class="navbar navbar-expand-md" style="background-color: #696969;">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                 <span style="color: #FFFFFF;">eitango</span>
@@ -42,13 +45,13 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}"><span style="color: #696969;">{{ __('ログイン') }}</span></a>
+                                    <a class="nav-link" href="{{ route('login') }}"><span style="color: #FFFFFF;">{{ __('ログイン') }}</span></a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('会員登録') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}"><span style="color: #FFFFFF;">{{ __('会員登録') }}</span></a>
                                 </li>
                             @endif
                         @else

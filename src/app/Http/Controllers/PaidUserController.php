@@ -15,7 +15,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Facades\Session;
 
 class PaidUserController extends Controller
 {
@@ -47,7 +47,7 @@ class PaidUserController extends Controller
        incorrect_answer::where('id', $id)->delete();
        
 
-       return redirect()->route('incorrect-answer')->with('success', '問題の削除に成功しました。');
+       return redirect()->route('paid-incorrect-answer')->with('success', '問題の削除に成功しました。');
    
    }
 
@@ -90,8 +90,10 @@ class PaidUserController extends Controller
        $title = Title::findOrFail($title_id);
        $firstQuiz = Quiz::where('title_id', $title_id)->first();
        $choices = Choice::where('quiz_id', $firstQuiz->id)->get();
+        // 全問題数を取得
+        $totalQuestions = Quiz::where('title_id', $title_id)->count();
 
-       return view('paid-user.show', compact('category', 'title', 'firstQuiz', 'choices'));
+       return view('paid-user.show', compact('category', 'title', 'firstQuiz', 'choices','totalQuestions'));
    }
 
    public function submitAnswer(QuizAnswerRequest $request)
@@ -169,6 +171,7 @@ class PaidUserController extends Controller
        $incorrectAnswer->save();
    }
    }
+   $nextQuiz = Quiz::where('title_id', $title_id)->where('id', '>', $quiz_id)->first();
 
        // 正誤判定の結果と正解数をセッションに保存
        // $request->session()->flash('result', $isCorrect);
@@ -176,7 +179,7 @@ class PaidUserController extends Controller
 
        $quiz = Quiz::findOrFail($quiz_id);
 
-       return view('paid-user.result', compact('category', 'title', 'quiz', 'isCorrect'));
+       return view('paid-user.result', compact('category', 'title', 'quiz', 'isCorrect','nextQuiz'));
    }
 
    public function nextQuiz($category_id, $title_id, $quiz_id)
@@ -185,10 +188,28 @@ class PaidUserController extends Controller
        $title = Title::findOrFail($title_id);
        $nextQuiz = Quiz::where('title_id', $title_id)->where('id', '>', $quiz_id)->first();
        $result = request()->query('result');
+        // 全問題数を取得
+        $totalQuestions = Quiz::where('title_id', $title_id)->count();
+
+            // 現在の問題番号をセッションから取得
+        $currentQuestion = Session::get('currentQuestion', 1);
+
+        // 問題セットごとに問題番号をリセット
+        if (!$nextQuiz) {
+            // 次の問題がない場合はリセット
+            $currentQuestion = 1;
+            Session::put('currentQuestionSet', 1);
+        } else {
+            // 次の問題がある場合はインクリメント
+            $currentQuestion++;
+        }
+
+    // 問題番号をセッションに保存
+    Session::put('currentQuestion', $currentQuestion);
 
        if ($nextQuiz) {
            $choices = Choice::where('quiz_id', $nextQuiz->id)->get();
-           return view('paid-user.next', compact('category', 'title', 'nextQuiz', 'choices'));
+           return view('paid-user.next', compact('category', 'title', 'nextQuiz', 'choices','totalQuestions','currentQuestion'));
        } else {
            return redirect()->route('paid-quiz-finalResult', [
                'category_id' => $category_id,

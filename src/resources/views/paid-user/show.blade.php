@@ -21,12 +21,13 @@
 
 
   </head>
-  <body>
+  <body style="background-color: #FDF5E6;">
   <div class="container">
-
+  <div class="row justify-content-center text-center my-3">
         <!-- クイズの表示 -->
-        <h3>{{ $title->title }}</h3>
-        <h1>{{ $firstQuiz->question }}</h1>
+        <h3 class="fw-light mb-5"><span style="color: #696969;">{{ $title->title}}</span></h3>
+        <h5>1/{{ $totalQuestions }}</h5>
+        <h1 class="mb-3" style="font-size:5rem;">{{ $firstQuiz->question }}</h1>
 
 
         <!-- 選択肢の表示 --><form action="{{ route('paid-quiz-submit') }}" method="post">
@@ -36,16 +37,24 @@
             <input type="hidden" name="title_id" value="{{ $title->id }}">
             <input type="hidden" name="category_id" value="{{ $category->id }}">
             @foreach ($choices as $choice)
-                <input type="radio" name="user_answer" value="{{ $choice->id }}">{{ $choice->choice }}<br>
+                <div role="group" aria-label="Basic radio toggle button group" class="my-3">
+                    <input type="radio" class="btn-check" name="user_answer" value="{{ $choice->id }}" id="choice{{ $choice->id }}" autocomplete="off">
+                    <label class="btn btn-outline-success" for="choice{{ $choice->id }}" style="height:3rem; width:15rem;">{{ $choice->choice }}</label>
+                    <br>
+                </div>
             @endforeach
+
+                
          
             <!-- エラーメッセージの表示 -->
     @if ($errors->has('user_answer'))
         <p style="font-size: 15px; color: red;">回答を選択してください</p>
     @endif
 
-        <button type="submit">回答する</button>
+        <button type="submit" class="btn btn-success mt-3">回答する</button>
+        
     </form>
+</div>
 </div>
 
 

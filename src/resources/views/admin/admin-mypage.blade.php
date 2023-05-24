@@ -75,7 +75,6 @@
                 <a href="{{ route('admin-list',['category_id'=>'1' ,'title_id'=>$title->id])}}"><button type="button" class="btn btn-outline-success" style="height:8rem; width:20rem;">Beginner<br>{{ $title->title}}(編集)</button></a>
             </div>
         </div>
-        
         @endforeach
         <!-- 中級 -->
         @foreach ($titles2 as $title)

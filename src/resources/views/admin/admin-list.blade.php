@@ -48,7 +48,7 @@
 
     
   </head>
-  <body>
+  <body style="background-color: #FDF5E6;">
   <div class="container">
 
     <main>
@@ -60,7 +60,7 @@
             @endforeach
             @endforeach
         <div class="row justify-content-center text-center my-1">
-        <table class="table">
+        <table class="table table-hover ">
   <thead>
     <tr>
       <th scope="col">英単語</th>

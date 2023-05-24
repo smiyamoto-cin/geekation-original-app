@@ -48,69 +48,49 @@
 
     
   </head>
-  <body>
+  <body style="background-color: #FDF5E6;">
   <div class="container">
 
     <main>
     
-            <section class="py-5 text-center container">
-                <div class="row py-lg-5">
-                    <div class="col-lg-6 col-md-8 mx-auto">
-                        <div class="row justify-content-center">
+            <section class="py-5 text-center container " style="background-color: #FDF5E6;">
+                
+                    
+                        <div class="row justify-content-center ">
                             @foreach ($categories as $category)
-                            <h3>{{ $category->name}}</h3>
+                            <h4 class="fw-light"><span style="color: #696969;">{{ $category->name}}</span></h4>
                             @endforeach
                             @foreach ($titles as $title)
-                            <h1>{{ $title->title}}</h1>
+                            <h3 class="fw-light"><span style="color: #696969;">{{ $title->title}}</span></h3>
                             @endforeach
                             @foreach ($quizzes as $quiz)
                             <input type="hidden" name="quiz_id" value="{{ $quiz->question}}">
                             @endforeach
                     
-                            
                         </div>
-                    </div>
-                </div>
             </section>
             
-            <div class="album py-5 bg-light">
-                <div class="row justify-content-center">
+            
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 justify-content-center">
                 <div class="col-5">
-                        <div class="card shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></svg>
-
-                            <div class="card-body">
-                            <p class="card-text">問題一覧</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                
-                                <a href="{{ route('user-list',['category_id'=>$category->id ,'title_id'=>$title->id])}}"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
-                                
-                                </div>
-                                <small class="text-muted">9 mins</small>
-                            </div>
-                            </div>
-                        </div>
-                        </div>
-                        <div class="col-5">
-                        <div class="card shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></svg>
-
-                            <div class="card-body">
-                            <p class="card-text">クイズ</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                
-                                <a href="{{ route('quiz.show', ['category_id'=>$category->id,'title_id'=>$title->id])}}"><button type="button" class="btn btn-sm btn-outline-secondary">Start</button></a>
-                                
-                                </div>
-                                <small class="text-muted">9 mins</small>
-                            </div>
-                            </div>
+                    <div class="d-flex justify-content-center my-5">
+                        <a href="{{ route('user-list',['category_id'=>$category->id ,'title_id'=>$title->id])}}"><button type="button" class="btn btn-success" style="height:15rem; width:20rem;">問題一覧</button></a>
                     </div>
-                    <a href="{{ route('user-mypage')}}"><button>戻る</button></a>
+                </div>
+                <div class="col-5">
+                    <div class="d-flex justify-content-center my-5">
+                        <a href="{{ route('quiz.show', ['category_id'=>$category->id,'title_id'=>$title->id])}}"><button type="button" class="btn btn-success" style="height:15rem; width:20rem;">START<br>クイズを始める</button></a>
+                    </div>
+                </div>
+                          
+                       
+                        
             </main>
+            <div class ="text-center">
+            <a href="{{ route('user-mypage')}}"><button class="btn btn-outline-secondary mt-5 text-center">戻る</button></a>   
+            </div>
     </div>
+    
 </body>
 
 @endsection

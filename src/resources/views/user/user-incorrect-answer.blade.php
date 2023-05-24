@@ -47,46 +47,52 @@
 
     
   </head>
-  <body>
+  <body style="background-color: #FDF5E6;">
   <div class="container">
 
     <main>
 <!-- クリックしたクイズのタイトルと問題一覧を表示 -->
-    <div class="row justify-content-center">
-<h1>不正解の単語リスト</h1>
-        <table class="table table-bordered table table-sm">
+    <div class="row justify-content-center text-center my-5">
+    <h4><span style="color: #696969;">不正解の単語リスト</span></h4>
 
-            @foreach ($incorrectAnswers as $incorrectAnswer) 
-            <tr>
-                <td nowrap>
-                    <p>{{ $incorrectAnswer->question }}</p>			
-                </td>
-                   
-                   
-                <td>{{ $incorrectAnswer->correct_answer }}</td>
-                    
-                </td>
-                <td nowrap>
-                <form action="{{ route('incorrect-answer-delete',['id'=>$incorrectAnswer->id]) }}" method="POST">
+    <div class="row justify-content-center text-center my-1">
+        <table class="table table-hover ">
+  <thead>
+    <tr>
+      <th scope="col">英単語</th>
+      <th scope="col">意味</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+  @foreach ($incorrectAnswers as $incorrectAnswer) 
+    <tr>
+      <th scope="row">{{ $incorrectAnswer->question }}</th>
+      <td>{{ $incorrectAnswer->correct_answer }}</td>
+     
+      <td><form action="{{ route('incorrect-answer-delete',['id'=>$incorrectAnswer->id]) }}" method="POST">
                 @csrf
-                <button type="submit" onclick="return confirm('単語帳から削除されますがよろしいですか？')">✅</button>
+                <button type="submit" onclick="return confirm('単語帳から削除されますがよろしいですか？')" class="btn btn-outline-secondary">削除</button>
                 </form>
-                </td>
-                
-            @endforeach
-            <!-- 登録成功メッセージとエラーメッセージ -->
-            @if(session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
-            @if(session('error'))
-                <div class="alert alert-danger">
-                    {{ session('error') }}
-                </div>
-            @endif
-        </table>
-        <a href="{{ route('user-mypage')}}"><button>戻る</button></a>
+    </tr>
+    @endforeach
+  </tbody>
+</table>
+      <!-- 登録成功メッセージとエラーメッセージ -->
+      @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+    
+
+        
+        <a href="{{ route('user-mypage')}}"><button button class="btn btn-outline-secondary mt-5">戻る</button></a>
        
     </div>
 </main>

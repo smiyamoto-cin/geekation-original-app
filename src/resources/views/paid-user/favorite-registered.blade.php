@@ -46,10 +46,10 @@
 
     
   </head>
-  <body>
-  <div class="container">
-
-    <main>
+  <body style="background-color: #FDF5E6;">
+  <div class="container text-center">
+<div class="mt-3">
+    <main >
 <!-- 登録成功メッセージとエラーメッセージ -->
 @if(session('success'))
                 <div class="alert alert-success">
@@ -61,10 +61,11 @@
                     {{ session('error') }}
                 </div>
             @endif
+    </div>
             <?php
 $hostname = $_SERVER['HTTP_HOST'];//ドメインを取得
 if (!empty($_SERVER['HTTP_REFERER']) && (strpos($_SERVER['HTTP_REFERER'],$hostname) !== false)) {
-	echo '<a href="' . $_SERVER['HTTP_REFERER'] . '">戻る</a>';
+	echo '<a href="' . $_SERVER['HTTP_REFERER'] . '"><button class="btn btn-outline-secondary mt-5">戻る</button></a>';
 }
 ?>
 

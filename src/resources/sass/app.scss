@@ -4,5 +4,12 @@
 // Variables
 @import 'variables';
 
+$fa-font-path: "../webfonts";
+
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+@import "~@fortawesome/fontawesome-free/scss/fontawesome"; //追記
+@import '~@fortawesome/fontawesome-free/scss/solid'; //追記
+@import '~@fortawesome/fontawesome-free/scss/regular'; //追記
+@import '~@fortawesome/fontawesome-free/scss/brands'; //追記
