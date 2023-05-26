@@ -56,6 +56,18 @@
     <h4><span style="color: #696969;">不正解の単語リスト</span></h4>
 
     <div class="row justify-content-center text-center my-1">
+              <!-- 登録成功メッセージとエラーメッセージ -->
+      @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+    
         <table class="table table-hover ">
   <thead>
     <tr>
@@ -78,18 +90,7 @@
     @endforeach
   </tbody>
 </table>
-      <!-- 登録成功メッセージとエラーメッセージ -->
-      @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-    @if(session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
-    
+
 
         
         <a href="{{ route('user-mypage')}}"><button button class="btn btn-outline-secondary mt-5">戻る</button></a>

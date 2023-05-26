@@ -54,6 +54,17 @@
     <main>
     <!-- クリックしたクイズのタイトルと問題一覧を表示 -->
         <div class="row justify-content-center text-center my-3" >
+                 <!-- 登録成功メッセージとエラーメッセージ -->
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
             @foreach ($categories as $category)
             @foreach ($titles as $title)
             <h4><span style="color: #696969;">{{ $category->name}}　{{ $title->title}}</span></h4>
@@ -94,17 +105,7 @@
   </tbody>
 </table>
         
-        <!-- 登録成功メッセージとエラーメッセージ -->
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-    @if(session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
+   
     
             <a href="{{ route('admin-list-add',['category_id'=>$category->id ,'title_id'=>$title->id])}}"><button class="btn btn-success my-2">問題を追加</button></a>
             <a href="{{ route('admin-mypage-titles')}}"><button class="btn btn-outline-secondary">戻る</button></a>
