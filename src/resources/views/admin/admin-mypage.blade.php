@@ -63,16 +63,19 @@
     </div>
   </section>
   
-  <div class="album py-5">
+  <div class="album py-5 margin: 50px auto;">
     <div class="container">
 
     
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mx-5">
         <!-- 初級 -->
       @foreach ($titles1 as $title) 
         <div class="col">
             <div class="d-flex justify-content-center mb-3" >
-                <a href="{{ route('admin-list',['category_id'=>'1' ,'title_id'=>$title->id])}}"><button type="button" class="btn btn-outline-success" style="height:8rem; width:20rem;">Beginner<br>{{ $title->title}}(編集)</button></a>
+                <a href="{{ route('admin-list',['category_id'=>'1' ,'title_id'=>$title->id])}}"><button type="button" class="btn btn-outline-success" style="height:10rem; width:24.5rem;"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" style="color:#9ACD32;" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+</svg><br>Beginner<br>{{ $title->title}}</button></a>
             </div>
         </div>
         @endforeach
@@ -80,7 +83,10 @@
         @foreach ($titles2 as $title)
         <div class="col">
             <div class="d-flex justify-content-center mb-3">
-                  <a href="{{ route('admin-list',['category_id'=>'2' ,'title_id'=>$title->id]) }}"><button type="button" class="btn btn-outline-primary" style="height:8rem; width:20rem;"> Intermediate<br>{{ $title->title }}(編集)</button></a>
+                  <a href="{{ route('admin-list',['category_id'=>'2' ,'title_id'=>$title->id]) }}"><button type="button" class="btn btn-outline-success" style="height:10rem; width:24.5rem;"> <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" style="color:#6B8E23;" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+</svg><br>Intermediate<br>{{ $title->title }}</button></a>
             </div>
         </div>
         
@@ -89,7 +95,10 @@
         @foreach ($titles3 as $title)
         <div class="col">
             <div class="d-flex justify-content-center mb-5">
-                <a href="{{ route('admin-list',['category_id'=>'3','title_id'=>$title->id]) }}"><button type="button" class="btn btn-outline-danger " style="height:8rem; width:20rem;">Advanced<br>{{ $title->title }}(編集)</button></a>
+                <a href="{{ route('admin-list',['category_id'=>'3','title_id'=>$title->id]) }}"><button type="button" class="btn btn-outline-success" style="height:10em; width:24.5rem;"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" style ="color:#006400;" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+</svg><br>Advanced<br>{{ $title->title }}</button></a>
             </div>
         </div>
         @endforeach

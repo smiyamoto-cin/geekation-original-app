@@ -36,6 +36,7 @@ class PaidUserController extends Controller
     { 
        $user_id = auth()->user()->id;
        $incorrectAnswers=incorrect_answer::where('user_id', $user_id)->get();
+    
       
 
         return view('paid-user.incorrect-answer',compact('incorrectAnswers'));
@@ -274,15 +275,19 @@ class PaidUserController extends Controller
    public function favoriteWords(Request $request,$id)
    {
     $user_id = auth()->user()->id;
+    
 
     $quiz_id= $request->get('quiz_id');
     $question= $request->get('question');
     $choice= $request->get('correct_answer');
+    
 
     // すでに登録されているかチェック
     $existingWord = Favorite_Word::where('user_id', $user_id)
         ->where('quiz_id', $quiz_id)
         ->first();
+        
+        
     if ($existingWord) {
         return redirect()->back()->with('error', 'すでに登録済みの単語です');
     }

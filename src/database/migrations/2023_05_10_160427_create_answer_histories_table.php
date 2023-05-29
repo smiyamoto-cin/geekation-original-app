@@ -18,7 +18,7 @@ class CreateAnswerHistoriesTable extends Migration
             $table->unsignedBigInteger('quiz_id')->nullable(false);
             $table->unsignedBigInteger('user_id')->nullable(false);
             $table->string('user_answer');
-            $table->string('correct_answer');
+            $table->string('correct_answer')->nullable()->default(null);
             $table->timestamps();
 
             //外部キー

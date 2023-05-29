@@ -21,13 +21,15 @@
     <body>
 
         <!-- Masthead-->
-        <header class="masthead mb-3" style="background-image: url('assets/img/hello.jpg')">
+        <header class="masthead mb-3" style="background-image: url('assets/img/children.jpg')">
             <div class="container position-relative">
                 <div class="row justify-content-center">
                     <div class="col-xl-6">
                         <div class="text-center text-white">
                             <!-- Page heading-->
-                            <h2 class="mb-5">英単語学習用クイズアプリ</h2>
+                            <h2 class="mb-5">
+                            <img src="{{ asset('assets/img/toplogogo.png') }}" alt="eitangoロゴ"><br>
+                            </h2>
                             <!-- Register form-->
                             <!-- * * * * * * * * * * * * * * *-->
                             <!-- * * SB Forms Contact Form * *-->
@@ -67,7 +69,7 @@
                     </div>
                 </div>
                 <div class="row g-0">
-                    <div class="col-lg-6 text-white showcase-img" style="background-image: url('assets/img/mypage3.png')"></div>
+                    <div class="col-lg-6 text-white showcase-img" style="background-image: url('assets/img/mypage2.png')"></div>
                     <div class="col-lg-6 my-auto showcase-text">
                         <h2><span style="color: #696969;">便利なマイページ</span></h2>
                         <p class="lead mb-0"><span style="color: #696969;">初級問題は全て無料で遊べます！有料会員になれば全てのカテゴリーと単語帳機能が利用できます。</span></p>
