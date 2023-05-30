@@ -138,7 +138,7 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
         Route::get('/mypage/quiz/result-list/{category_id}/{title_id}/{quiz_id}', [PaidUserController::class, 'UserResultList'])->name('paid-quiz-resultList'); 
         //お気に入り登録処理
         Route::post('/mypage/quiz/fav/{id}', [PaidUserController::class, 'favoriteWords'])->name('favorite-words');
-        //お気に入り画面
+        //お気に入り画面 
         Route::get('/mypage/quiz/fav-list', [PaidUserController::class, 'favoriteWordsList'])->name('favorite-words-list');
         //お気に入りの単語一覧　削除処理
         Route::post('/mypage/fav-list/delete/{id}', [PaidUserController::class, 'favoriteWordsDelete'])

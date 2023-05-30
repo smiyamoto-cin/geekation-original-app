@@ -60,7 +60,7 @@
         <section class="showcase">
             <div class="container-fluid p-0">
                 <div class="row g-0">
-                    <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('assets/img/apple5.png')"></div>
+                    <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('assets/img/top-apple.png')"></div>
                     <div class="col-lg-6 order-lg-1 my-auto showcase-text">
                         <h2><span style="color: #696969;">クイズ形式で楽しく英単語を覚えよう！</span>
                         </h2>

@@ -48,7 +48,7 @@ class PaidUserController extends Controller
        incorrect_answer::where('id', $id)->delete();
        
 
-       return redirect()->route('paid-incorrect-answer')->with('success', '問題の削除に成功しました。');
+       return redirect()->route('paid-incorrect-answer')->with('success', '不正解単語帳から単語を削除しました。');
    
    }
 
@@ -301,7 +301,7 @@ class PaidUserController extends Controller
     $favoriteWord->save();
    
     
-    return redirect()->route('favorite-words-registered')->with('success', '単語帳に登録しました');
+    return redirect()->back()->with('success', 'お気に入り単語帳に登録しました');
     
    }
     //お気に入りの単語一覧
@@ -320,7 +320,7 @@ class PaidUserController extends Controller
        favorite_word::where('id', $id)->delete();
        
 
-       return redirect()->route('favorite-words-list')->with('success', '問題の削除に成功しました。');
+       return redirect()->route('favorite-words-list')->with('success', 'お気に入り単語帳から単語を削除しました。');
    
    }
       //お気に入りの単語登録完了画面

@@ -69,7 +69,7 @@ class UserController extends Controller
         incorrect_answer::where('id', $id)->delete();
         
 
-        return redirect()->route('incorrect-answer')->with('success', '問題の削除に成功しました。');
+        return redirect()->route('incorrect-answer')->with('success', '不正解単語帳から単語を削除しました。');
     
     }
 
