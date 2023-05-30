@@ -7,7 +7,12 @@ use App\Models\choice;
 use App\Models\quiz;
 use App\Models\title;
 use Illuminate\Http\Request;
+use App\Http\Requests\AdminRequest;
 
+
+/**
+ * Summary of AdminController
+ */
 class AdminController extends Controller
 {//   管理者マイページ
     public function AdminMypage()
@@ -55,8 +60,19 @@ class AdminController extends Controller
     
 
     //問題追加処理
-    public function AdminListCreate(Request $request)
+    public function AdminListCreate(AdminRequest $request)
     {
+            // 送信された問題を取得
+        $question = $request->input('question');
+
+        // 問題の重複チェック
+        $existingQuiz = Quiz::where('question', $question)->first();
+        if ($existingQuiz) {
+            return redirect()->back()->with('error', 'すでに登録済みの問題です。');
+        }
+
+
+
         // Quizのデータを登録
         $quiz = Quiz::create($request->all());
         $quiz_id = $quiz->id; // 登録されたQuizのIDを取得
@@ -99,9 +115,22 @@ class AdminController extends Controller
     }
 
     //問題更新処理
-    public function AdminListUpdate(Request $request)
+    /**
+     * Summary of AdminListUpdate
+     * @param AdminRequest $request
+     */
+    public function AdminListUpdate(AdminRequest $request)
     {
         $inputs =$request->all();
+        $question = $request->input('question');
+
+         // 問題の重複チェック
+         $existingQuiz = Quiz::where('question', $question)->first();
+         if ($existingQuiz) {
+             return redirect()->back()->with('error', 'すでに登録済みの問題です。');
+         }
+        
+    
       
          // Quizのデータを更新
         $quiz = Quiz::findOrFail($inputs['quiz_id']);

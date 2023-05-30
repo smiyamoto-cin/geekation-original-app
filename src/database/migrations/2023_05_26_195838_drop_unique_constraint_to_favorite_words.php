@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropUniqueConstraintInIncorrectAnswers extends Migration
+class DropUniqueConstraintToFavoriteWords extends Migration
 {
     /**
      * Run the migrations.
@@ -12,8 +12,9 @@ class DropUniqueConstraintInIncorrectAnswers extends Migration
      * @return void
      */
     public function up()
-    {   Schema::table('incorrect_answers', function (Blueprint $table) {
-        $table->dropUnique('question');
+    {
+        Schema::table('favorite_words', function (Blueprint $table) {
+        $table->dropUnique('favorite_word');
         });
     }
 
@@ -24,8 +25,8 @@ class DropUniqueConstraintInIncorrectAnswers extends Migration
      */
     public function down()
     {
-        Schema::table('incorrect_answers', function (Blueprint $table) {
-            $table->unique('question');
+        Schema::table('favorite_words', function (Blueprint $table) {
+            $table->unique('favorite_word');
         });
     }
 }

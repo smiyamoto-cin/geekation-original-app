@@ -69,7 +69,7 @@ class UserController extends Controller
         incorrect_answer::where('id', $id)->delete();
         
 
-        return redirect()->route('incorrect-answer')->with('success', '問題の削除に成功しました。');
+        return redirect()->route('incorrect-answer')->with('success', '不正解単語帳から単語を削除しました。');
     
     }
 
@@ -227,6 +227,7 @@ class UserController extends Controller
     
         // 問題番号をセッションに保存
         Session::put('currentQuestion', $currentQuestion);
+        
         if ($nextQuiz) {
            
             $choices = Choice::where('quiz_id', $nextQuiz->id)->get();
@@ -238,6 +239,7 @@ class UserController extends Controller
                 'quiz_id' => $quiz_id,
             ]);
         }
+       
     }
 
     public function finalResult(Request $request,$category_id,$title_id,$quiz_id)

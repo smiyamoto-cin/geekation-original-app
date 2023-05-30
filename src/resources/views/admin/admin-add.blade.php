@@ -7,9 +7,11 @@
 <div class="container ">
     <main>
     <div class="row justify-content-center my-3">
+    
             <form action="{{ route('admin-list-create') }}" method="POST" class="w-25">
                 @csrf
                     {{-- カテゴリーフォーム --}}
+                    
             
                 <div class="form-group my-3 ">
                     <label for="category_id">{{ 'カテゴリー' }}</label>
@@ -33,15 +35,27 @@
                 {{-- クイズフォーム --}}
                 <div class="form-group my-3">
                     <label for="question">{{ '問題' }}<span class="badge bg-danger ms-3">{{ '必須' }}</span></label>
-                    <input type="text" class="form-control" name="question" id="question">
-                </div>
+                    <input type="text" class="form-control" name="question" id="question" value="{{ old('question') }}" >
+                    @error('question')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                    @if(session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+                    </div>
                 
                 {{-- 選択肢フォーム --}}
                 <div class="form-group my-3">
                     <label for="choices">選択肢<span class="badge bg-danger ms-3">{{ '必須' }}</span></label>
                     @for ($i = 0; $i < 3; $i++)
-                        <input type="text" class="form-control my-2" name="choices[]" id="choices{{ $i + 1 }}" required>
+                        <input type="text" class="form-control my-2" name="choices[]" id="choices{{ $i + 1 }}" value="{{ old('choices[]') }}" >
                     @endfor
+                    @error('choices.*')
+                     <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+       
                 </div>
 
                 {{-- 正解の選択肢を選ぶ --}}
@@ -49,16 +63,21 @@
                     <label>正解の選択肢<span class="badge bg-danger ms-3">{{ '必須' }}</span></label><br>
                     @for ($i = 0; $i < 3; $i++)
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="is_answer" id="isAnswer{{ $i + 1 }}" value="{{ $i }}" required>
+                            <input class="form-check-input" type="radio" name="is_answer" id="isAnswer{{ $i + 1 }}" value="{{  old('is_answer', $i) }}">
                             <label class="form-check-label" for="isAnswer{{ $i + 1 }}">選択肢{{ $i + 1 }}</label>
+                            
                         </div>
                     @endfor
+                    @error('is_answer')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+     
                 </div>
                 <div class="text-center">
-                <button type="submit" class="btn btn-success my-4">
+                <button type="submit" class="btn btn-success my-4" onclick="return confirm('こちらの内容で追加してよろしいですか？')">
                             {{ '登録する' }}
-                        </button>
-                        <button  onClick="history.back();" class="btn btn-outline-secondary my-4">戻る</button> 
+                </button><br>
+                        <a href="{{ route('admin-list',['category_id'=>$category->id ,'title_id'=>$title->id])}}"><button type="button" class="btn btn-outline-secondary mt-2">戻る</button></a>
                 </div>
             </form>
         </div>

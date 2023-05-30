@@ -48,10 +48,10 @@
   </head>
   <body style="background-color: #FDF5E6;">
   <div class="container text-center">
-  <h3 class="my-5"><span style="color: #696969;" >{{ $title->title }}</span></h3>
+  <h3 class="my-4"><span style="color: #696969;" >{{ $title->title }}</span></h3>
     
-  <h2><span style="color: #696969;" >最終結果</span></h2>
-  <h1>正解数: {{ $correctAnswersCount}} / {{ $totalQuestions }}</h1>
+  <h3><span style="color: #696969;" >最終結果</span></h3>
+  <h1 class="mt-5">正解数: {{ $correctAnswersCount}} / {{ $totalQuestions }}</h1>
     <h4 class="my-3 mt-5"><span style="color: #696969;" >お疲れ様でした！</span></h4>
     <a href="{{ route('paid-quiz-resultList', ['category_id'=>$category->id,'title_id'=>$title->id,'quiz_id'=>$quiz->id])}}"><button class="btn btn-success">解答一覧へ</button></a>           
     </div>

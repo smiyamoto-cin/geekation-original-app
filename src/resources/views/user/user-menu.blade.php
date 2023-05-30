@@ -73,13 +73,17 @@
             
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 justify-content-center">
                 <div class="col-5">
-                    <div class="d-flex justify-content-center my-5">
-                        <a href="{{ route('user-list',['category_id'=>$category->id ,'title_id'=>$title->id])}}"><button type="button" class="btn btn-success" style="height:15rem; width:20rem;">問題一覧</button></a>
+                    <div class="d-flex justify-content-center my-5 float-end">
+                        <a href="{{ route('user-list',['category_id'=>$category->id ,'title_id'=>$title->id])}}"><button type="button" class="btn btn-outline-success" style="height:10rem; width:20rem;"><svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" fill="currentColor" class="bi bi-list-ul mb-2" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                        </svg><br>問題一覧</button></a>
                     </div>
                 </div>
                 <div class="col-5">
-                    <div class="d-flex justify-content-center my-5">
-                        <a href="{{ route('quiz.show', ['category_id'=>$category->id,'title_id'=>$title->id])}}"><button type="button" class="btn btn-success" style="height:15rem; width:20rem;">START<br>クイズを始める</button></a>
+                    <div class="d-flex justify-content-center my-5 float-start">
+                        <a href="{{ route('quiz.show', ['category_id'=>$category->id,'title_id'=>$title->id])}}"><button type="button" class="btn btn-outline-success" style="height:10rem; width:20rem;"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                        <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                        </svg><br>START<br>クイズを始める</button></a>
                     </div>
                 </div>
                           

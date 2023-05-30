@@ -9,70 +9,85 @@
     <main>
     <div class="row justify-content-center my-3">
         <form action="{{ route('admin-list-update') }}" method="POST" class="w-25">
-        @csrf
-            <input type="hidden" name="quiz_id" value="{{ $quiz_id }}">
-            {{-- カテゴリーフォーム --}}
-        <div class="form-group my-3">
-            <label for="category_id">{{ 'カテゴリー' }}</label>
-            <select class="form-control" id="category_id" name="category_id">
-            @foreach ($categories as $category)
-            <option value="{{ $category->id }}">{{ $category->name }}</option>
-            @endforeach
-            </select>
-        </div>
-        {{-- タイトルフォーム --}}
-        <div class="form-group my-3">
-            <label for="title_id">{{ 'タイトル' }}</label>
-            <select class="form-control" id="title_id" name="title_id">
-            @foreach ($titles as $title)
-            <option value="{{ $title->id }}">{{ $title->title }}</option>
-            @endforeach
-            </select>
-        </div>
-        
-
-        
-        {{-- クイズフォーム --}}
-        <div class="form-group my-3">
-            <label for="question">{{ '問題' }}<span class="badge bg-danger ms-3">{{ '必須' }}</span></label>
-            @foreach ($quizzes as $quiz)
-            <input type="text" class="form-control" name="question" id="question" value="{{$quiz->question}}">
-            @endforeach  
-        </div>
-    
-        {{-- 選択肢フォーム --}}
-        <div class="form-group my-3">
-            <label for="choices">選択肢<span class="badge bg-danger ms-3">{{ '必須' }}</span></label>
-            @for ($i = 0; $i < 3; $i++)
-        
-                <input type="text" class="form-control my-2" name="choices[]" id="choices{{ $i + 1 }}" value="{{ isset($choices[$i]) ? $choices[$i]->choice : '' }}"required>
+            @csrf
+                    <input type="hidden" name="quiz_id" value="{{ $quiz_id }}">
+                    {{-- カテゴリーフォーム --}}
+                <div class="form-group my-3">
+                    <label for="category_id">{{ 'カテゴリー' }}</label>
+                    <select class="form-control" id="category_id" name="category_id">
+                    @foreach ($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
+                    </select>
+                    </div>
+                {{-- タイトルフォーム --}}
+                <div class="form-group my-3">
+                    <label for="title_id">{{ 'タイトル' }}</label>
+                    <select class="form-control" id="title_id" name="title_id">
+                    @foreach ($titles as $title)
+                    <option value="{{ $title->id }}">{{ $title->title }}</option>
+                    @endforeach
+                    </select>
+                </div>
             
-            @endfor
-        </div>
+                {{-- クイズフォーム --}}
+                <div class="form-group my-3">
+                    <label for="question">{{ '問題' }}<span class="badge bg-danger ms-3">{{ '必須' }}</span></label>
+                    @foreach ($quizzes as $quiz)
+                        <input type="text" class="form-control" name="question" id="question" value="{{$quizzes[0]->question}}">
+                    @endforeach
+                    @error('question')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                    @if(session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+                </div>
 
-        {{-- 正解の選択肢を選ぶ --}}
-        <div class="form-group">
-        <label>正解の選択肢<span class="badge bg-danger ms-3">{{ '必須' }}</span></label><br>
-        @foreach ($choices as $index => $choice)
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="is_answer" id="isAnswer{{ $index + 1 }}" value="{{ $index }}" {{ $choice->is_answer ? 'checked' : '' }} required>
-                <label class="form-check-label" for="isAnswer{{ $index + 1 }}">選択肢{{ $index + 1 }}</label>
+            
+                {{-- 選択肢フォーム --}}
+                <div class="form-group my-3">
+                    <label for="choices">選択肢<span class="badge bg-danger ms-3">{{ '必須' }}</span></label>
+                    @for ($i = 0; $i < 3; $i++)
+                
+                        <input type="text" class="form-control my-2" name="choices[]" id="choices{{ $i + 1 }}" value="{{ isset($choices[$i]) ? $choices[$i]->choice : '' }}">
+                    @endfor
+                    @error('choices.*')
+                     <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror   
+                   
+                </div>
+
+                {{-- 正解の選択肢を選ぶ --}}
+                <div class="form-group">
+                <label>正解の選択肢<span class="badge bg-danger ms-3">{{ '必須' }}</span></label><br>
+                @foreach ($choices as $index => $choice)
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="is_answer" id="isAnswer{{ $index + 1 }}" value="{{ $index }}" {{ $choice->is_answer ? 'checked' : '' }} >
+                        <label class="form-check-label" for="isAnswer{{ $index + 1 }}">選択肢{{ $index + 1 }}</label>
+                    </div>
+                @endforeach
+                @error('is_answer')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+     
+                </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-success my-4" onclick="return confirm('こちらの内容で更新してよろしいですか？')">
+                    {{ '更新する' }}
+                </button><br>
+                <a href="{{ route('admin-list',['category_id'=>$category->id ,'title_id'=>$title->id])}}"><button type="button" class="btn btn-outline-secondary mt-2">戻る</button></a>
             </div>
-        @endforeach
-        </div>
+            </form>
+   
 
-    </div>
-    <div class="text-center">
-        <button type="submit" class="btn btn-success my-4" onclick="return confirm('こちらの内容で更新してよろしいですか？')">
-            {{ '更新する' }}
-        </button>
-        <button  onClick="history.back();" class="btn btn-outline-secondary my-4">戻る</button>
-    </div>
-        </form>
-        
     </div>
     </main>
-    <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
+    
   </body>
 </div>
 </html>

@@ -27,7 +27,7 @@
         <nav class="navbar navbar-expand-md" style="background-color: #696969;">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                <span style="color: #FFFFFF;">eitango</span>
+                <img src="{{ asset('assets/img/logo2.png') }}" alt="eitangoロゴ">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -45,13 +45,13 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}"><span style="color: #FFFFFF;">{{ __('ログイン') }}</span></a>
+                                    <a class="nav-link" href="{{ route('login') }}"><span style="color: white;">{{ __('ログイン') }}</span></a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}"><span style="color: #FFFFFF;">{{ __('会員登録') }}</span></a>
+                                    <a class="nav-link" href="{{ route('register') }}"><span style="color:white;">{{ __('会員登録') }}</span></a>
                                 </li>
                             @endif
                         @else
